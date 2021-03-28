@@ -1,6 +1,6 @@
 <!------ Include the above in your HEAD tag ---------->
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <!-- Required meta tags -->
@@ -13,13 +13,13 @@
     <link href="PStyles.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <!-- Bootstrap CSS -->
+     Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- External CSS -->
-    <link href="../static/PTestStyles.css" rel="stylesheet">
+    <link href="PTestStyles.css" rel="stylesheet">
     <title>Appointment History</title>
 </head>
 
@@ -60,7 +60,7 @@
         </ul>
         <ul class=" navbar-nav ml-auto float-right">
             <li class="nav-item ">
-                <a class="nav-link text-white" href="PLogin.html">Sign Out</a>
+                <a class="nav-link text-white" th:href="@{/login}">Sign Out</a>
             </li>
         </ul>
     </div>

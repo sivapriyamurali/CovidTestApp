@@ -1,6 +1,6 @@
 <!------ Include the above in your HEAD tag ---------->
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <!-- Required meta tags -->
@@ -16,7 +16,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
     <!-- Bootstrap CSS check-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="../static/PTestStyles.css" rel="stylesheet">
+    <link href="PTestStyles.css" rel="stylesheet">
     <title>Register</title>
 </head>
 
@@ -31,17 +31,20 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto float-right">
                 <li class="nav-item ">
-                    <a class="nav-link text-white" href="PHome.html">Home</a>
+<!--                    <a class="nav-link text-white" href="PHome.html">Home</a>-->
+                    <a class="nav-link text-white" th:href="@{/PHome}">Home</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link text-white" href="PTest.html"> Test</a>
+<!--                    <a class="nav-link text-white" href="PTest.html"> Test</a>-->
+                    <a class="nav-link text-white" th:href="@{/Test}">Test</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link text-white" href="Appointments.html"> Appointments</a>
+<!--                    <a class="nav-link text-white" href="Appointments.html"> Appointments</a>-->
+                    <a class="nav-link text-white" th:href="@{/Appointments}">Appointments</a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link text-white" href="PLogin.html">Sign Out</a>
+                    <a class="nav-link text-white" th:href="@{/login}">Sign Out</a>
                 </li>
             </ul>
         </div>

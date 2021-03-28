@@ -43,17 +43,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto float-right">
                 <li class="nav-item ">
-<!--                    <a class="nav-link text-white" href="PTest.html"> Test</a>-->
+                    <a class="nav-link text-white" th:href="@{/Test}">Test</a>
                 </li>
                 <li class="nav-item ">
-<!--                    <a class="nav-link text-white" href="PVaccine.html"> Vaccine</a>-->
+                    <a class="nav-link text-white" th:href="@{/Vaccine}">Vaccine</a>
                 </li>
                 <li class="nav-item ">
-<!--                    <a class="nav-link text-white" href="Appointment.html">Appointments</a>-->
+                    <a class="nav-link text-white" th:href="@{/Appointments}">Appointments</a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link text-white" th:href="@{/login}">Sign Out</a>
-<!--                    <a class="nav-link text-white" href="PLogin.html">Sign Out</a>-->
                 </li>
 
             </ul>
@@ -72,34 +71,36 @@
                                 <label for="full_name" class="col-md-4 col-form-label text-md-right">Full
                                     Name</label>
                                 <div class="col-md-6">
-                                    <input type="text" id="full_name" class="form-control" name="full-name">
+                                    <input type="text" id="full_name" class="form-control" name="full-name" th:value="${#authentication.getPrincipal().getFullName()}" readonly = true>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail
                                     Address</label>
                                 <div class="col-md-6">
-                                    <input type="text" id="email_address" class="form-control" name="email-address">
+                                    <input type="text" id="email_address" class="form-control" name="email-address" th:value="${#authentication.getPrincipal().getUsername()}" readonly = true>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="phone_number" class="col-md-4 col-form-label text-md-right">Phone
                                     Number</label>
                                 <div class="col-md-6">
-                                    <input type="text" id="phone_number" class="form-control">
+                                    <input type="text" id="phone_number" class="form-control" name="Phone Number" th:value="${#authentication.getPrincipal().getPhNo()}" readonly = true>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="present_address" class="col-md-4 col-form-label text-md-right">
                                     Address</label>
                                 <div class="col-md-6">
-                                    <input type="text" id="present_address" class="form-control">
+                                    <input type="text" id="present_address" class="form-control" th:value="${#authentication.getPrincipal().getaddress()}" readonly = true>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-4"></div>
                                 <div class="col-2">
-                                    <button type="submit" class="btn btn-primary btn-login"> Edit </button>
+
+                                    <button type="submit" class="btn btn-primary btn-login" onclick="myFunction()" > Edit </button>
+
                                 </div>
 
                                 <div class="col-2 ">
@@ -117,7 +118,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>-->
 <script>
-
+function myFunction()
+{
+    document.getElementById("full_name").readOnly = false;
+    document.getElementById("email_address").readOnly = false;
+    document.getElementById("phone_number").readOnly = false;
+    document.getElementById("present_address").readOnly = false;
+}
 </script>
 
 

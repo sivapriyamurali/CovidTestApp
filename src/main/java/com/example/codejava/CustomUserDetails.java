@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class CustomUserDetails implements UserDetails {
 
 	private User user;
-	
+
 	public CustomUserDetails(User user) {
 		this.user = user;
 	}
@@ -47,9 +47,16 @@ public class CustomUserDetails implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-	
+
 	public String getFullName() {
 		return user.getName();
+	}
+
+	public String getPhNo() {
+		return user.getPhone();
+	}
+	public String getaddress() {
+		return user.getAddress();
 	}
 
 }

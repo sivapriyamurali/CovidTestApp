@@ -10,7 +10,7 @@ body{
 
 
 .bg-image {
-    background-image: url('Image1.jpeg');
+    background-image: url('Images/Image1.jpeg');
     background-position: center;
     background-size: auto ;
 
@@ -56,10 +56,18 @@ body{
 .cardtoggle{
     display:none;
 }
-.test{
+/* Fallback for Edge
+  -------------------------------------------------- */
 
+@supports (-ms-ime-align: auto) {
+    .form-label-group>label {
+        display: none;
+    }
+
+    .form-label-group input::-ms-input-placeholder {
+        color: #777;
+    }
 }
-
 
 /* Fallback for IE
   -------------------------------------------------- */

@@ -57,22 +57,64 @@
                 <div class="card">
                     <div class="card-header">Schedule Vaccine Appointment</div>
                     <div class="card-body">
-                        <form name="my-form" onsubmit="return validform()" action="success.php" method="">
+
+                        <form th:action="@{/Vac_confirm}" th:object="${appt}" method="post" style="max-width: 600px; margin: 0 auto;">
+
+
+<!--                        <form name="my-form" onsubmit="return validform()" action="success.php" method="">-->
+
+
                             <div class="form-group row">
-                                <label for="location" class="col-md-4 col-form-label text-md-right">Location </label>
+                                <label  class="col-md-4 col-form-label text-md-right">Location </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="location" class="form-control" name="location">
+                                    <input type="text" th:field="*{Test_center}" class="form-control" required minlength="2" maxlength="20"/>
                                 </div>
                             </div>
+
+
                             <div class="form-group row">
+                                <label  class="col-md-4 col-form-label text-md-right">Vaccine Type </label>
+
+
+                                <div class="col-md-2 col-form-label text-md-right">
+                                    <input type="radio" id="Pfizer"  name="vaccine_type_pfizer" class="form-check-input" value="Pfizer" th:field="*{Test_Type}" />
+                                    <label> Pfizer </label>
+                                </div>
+
+
+                                <div class="col-md-2 col-form-label text-md-right">
+                                    <input type="radio" id="Moderna"  class="form-check-input" name="vaccine_type_moderna"  value="Moderna" th:field="*{Test_Type}" />
+                                    <label> Moderna</label>
+                                </div>
+
+                                <div class="col-md-2 col-form-label text-md-right">
+                                    <input type="radio" id="Johnson & Johnson"  class="form-check-input" name="vaccine_type_johnson"  value="Johnson & Johnson" th:field="*{Test_Type}" />
+                                    <label> J & J </label>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row" id="dateSelection">
                                 <label for="date_of_test" class="col-md-4 col-form-label text-md-right">Date </label>
                                 <div class="col-md-6">
-                                    <input type="date" id="date_of_test" class="form-control" name="date_of_test">
+                                    <input type="date" id="date_of_test" th:field="*{Date}"class="form-control" name="date_of_test">
                                 </div>
                             </div>
+
+
+                            <div id="newElementId" class="form-group row" >
+                                <label  class="col-md-4 col-form-label text-md-right">Time </label>
+                                <div class="col-md-6">
+                                    <input type="time" id="time_of_test" th:field="*{Timeslot}"class="form-control" name="time_of_test">
+                                </div>
+                            </div>
+
+
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary btn-login"> Confirm </button>
                             </div>
+
+
                         </form>
                     </div>
                 </div>

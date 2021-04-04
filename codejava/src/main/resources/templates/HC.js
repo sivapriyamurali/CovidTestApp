@@ -34,8 +34,6 @@ function GenerateTable() {
 
 }
 
-
-
 var button = document.getElementById("getRadio");
 var radios = document.getElementsByTagName("input");
 

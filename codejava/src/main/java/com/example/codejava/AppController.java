@@ -1,9 +1,12 @@
 package com.example.codejava;
 
+import java.security.Principal;
 import java.util.List;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,36 +17,65 @@ public class AppController {
 
 	@Autowired
 	private UserRepository userRepo;
+
+	@Autowired
+	private AppointmentRepository apptrepo;
 	
 	@GetMapping("/login")
-	public String login() {
+	public String login()
+	{
 		return "PLogin.html";
 	}
 
+
 	@GetMapping("/Appointments")
-	public String Appointments() {
-		return "Appointments.html";
+	public String Appointments(Model model, @AuthenticationPrincipal CustomUserDetails userna)
+	{
+
+		List<Appointments> listAppsPast = apptrepo.findByNamePastAppointments(userna.getUsername());
+		List<Appointments> listAppsFuture = apptrepo.findByNameFutureAppointments(userna.getUsername());
+
+		model.addAttribute("listAppsPast", listAppsPast);
+		model.addAttribute("listAppsFuture", listAppsFuture);
+
+		return "Appointments";
+	}
+
+	@GetMapping("/users")
+	public String listUsers(Model model)
+	{
+		List<User> listUsers = userRepo.findAll();
+		model.addAttribute("listUsers", listUsers);
+
+		return "users";
 	}
 
 	@GetMapping("/Vaccine")
-	public String Vaccine() {
+	public String Vaccine(Model model)
+	{
+		model.addAttribute("appt", new Appointments());
 		return "PVaccine.html";
 	}
 
 	@GetMapping("/Test")
-	public String Test() {
+	public String Test(Model model)
+	{
+		model.addAttribute("appt", new Appointments());
 		return "PTest.html";
+
 	}
 	
 	@GetMapping("/register")
-	public String showRegistrationForm(Model model) {
+	public String showRegistrationForm(Model model)
+	{
 		model.addAttribute("user", new User());
 		
 		return "Registration.html";
 	}
 	
 	@PostMapping("/process_register")
-	public String processRegister(User user) {
+	public String processRegister(User user)
+	{
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodedPassword);
@@ -53,36 +85,38 @@ public class AppController {
 		return "register_success";
 	}
 
+	@PostMapping("/Test_confirm")
+	public String testAppointment(Appointments appt , @AuthenticationPrincipal CustomUserDetails userna)
+	{
+		appt.setPatient_id(userna.getUsername());
+		appt.setType("Test");
 
-	
-	@GetMapping("/users")
-	public String listUsers(Model model) {
-		List<User> listUsers = userRepo.findAll();
-		model.addAttribute("listUsers", listUsers);
-		
-		return "users";
+		apptrepo.save(appt);
+
+		return "TestApptSuccess.html";
 	}
+
+
+	@PostMapping("/Vac_confirm")
+	public String VacAppointment(Appointments appt , @AuthenticationPrincipal CustomUserDetails userna)
+	{
+		appt.setPatient_id(userna.getUsername());
+		appt.setType("Vaccination");
+
+		apptrepo.save(appt);
+
+		return "TestApptSuccess.html";
+	}
+
+
 
 	@GetMapping("/PHome")
 	public String PatientHome(Model model)
 	{
-//		List<User> listUsers = userRepo.findAll();
-//		model.addAttribute("listUsers", listUsers);
-
 		return "PHome";
 	}
 
-//	@GetMapping("/PHome")
-//	public String PHome(Model model)
-//	{
-//		return "PHome";
-//	}
 
-//	@RequestMapping(value = "/PHome", method = RequestMethod.GET)
-//	@ResponseBody
-//	public String currentUserName(Authentication authentication) {
-//		return authentication.name();
-//	}
 
 //	@RequestMapping(value = "/employees", method = RequestMethod.GET)
 //	public String overviewEmployee(Model model) {

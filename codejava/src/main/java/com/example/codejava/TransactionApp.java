@@ -4,8 +4,8 @@ package com.example.codejava;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Appointments")
-public class Appointments
+@Table(name = "Transaction")
+public class TransactionApp
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

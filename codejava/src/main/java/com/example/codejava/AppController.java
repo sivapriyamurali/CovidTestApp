@@ -1,12 +1,9 @@
 package com.example.codejava;
 
-import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +16,7 @@ public class AppController {
 	private UserRepository userRepo;
 
 	@Autowired
-	private AppointmentRepository apptrepo;
+	private TransactionAppRepository apptrepo;
 	
 	@GetMapping("/login")
 	public String login()
@@ -32,8 +29,8 @@ public class AppController {
 	public String Appointments(Model model, @AuthenticationPrincipal CustomUserDetails userna)
 	{
 
-		List<Appointments> listAppsPast = apptrepo.findByNamePastAppointments(userna.getUsername());
-		List<Appointments> listAppsFuture = apptrepo.findByNameFutureAppointments(userna.getUsername());
+		List<TransactionApp> listAppsPast = apptrepo.findByNamePastAppointments(userna.getUsername());
+		List<TransactionApp> listAppsFuture = apptrepo.findByNameFutureAppointments(userna.getUsername());
 
 		model.addAttribute("listAppsPast", listAppsPast);
 		model.addAttribute("listAppsFuture", listAppsFuture);
@@ -41,26 +38,19 @@ public class AppController {
 		return "Appointments";
 	}
 
-	@GetMapping("/users")
-	public String listUsers(Model model)
-	{
-		List<User> listUsers = userRepo.findAll();
-		model.addAttribute("listUsers", listUsers);
 
-		return "users";
-	}
 
 	@GetMapping("/Vaccine")
 	public String Vaccine(Model model)
 	{
-		model.addAttribute("appt", new Appointments());
+		model.addAttribute("appt", new TransactionApp());
 		return "PVaccine.html";
 	}
 
 	@GetMapping("/Test")
 	public String Test(Model model)
 	{
-		model.addAttribute("appt", new Appointments());
+		model.addAttribute("appt", new TransactionApp());
 		return "PTest.html";
 
 	}
@@ -84,9 +74,17 @@ public class AppController {
 		
 		return "register_success";
 	}
+	
+	@GetMapping("/users")
+	public String listUsers(Model model)
+	{
+		List<User> listUsers = userRepo.findAll();
+		model.addAttribute("listUsers", listUsers);
 
+		return "users";
+	}
 	@PostMapping("/Test_confirm")
-	public String testAppointment(Appointments appt , @AuthenticationPrincipal CustomUserDetails userna)
+	public String testAppointment(TransactionApp appt , @AuthenticationPrincipal CustomUserDetails userna)
 	{
 		appt.setPatient_id(userna.getUsername());
 		appt.setType("Test");
@@ -98,16 +96,15 @@ public class AppController {
 
 
 	@PostMapping("/Vac_confirm")
-	public String VacAppointment(Appointments appt , @AuthenticationPrincipal CustomUserDetails userna)
+	public String VacAppointment(TransactionApp appt , @AuthenticationPrincipal CustomUserDetails userna)
 	{
 		appt.setPatient_id(userna.getUsername());
 		appt.setType("Vaccination");
 
 		apptrepo.save(appt);
 
-		return "TestApptSuccess.html";
+		return "VaccApptSuccess.html";
 	}
-
 
 
 	@GetMapping("/PHome")
@@ -115,20 +112,5 @@ public class AppController {
 	{
 		return "PHome";
 	}
-
-
-
-//	@RequestMapping(value = "/employees", method = RequestMethod.GET)
-//	public String overviewEmployee(Model model) {
-//		model.addAttribute("sections", sectionService.getAllSections());
-//		model.addAttribute("personSectionService", personSectionService);
-//		return "employee-list";
-//	}
-//
-//	@RequestMapping(value = "/overviewEmployee", method = RequestMethod.GET)
-//	public String overviewEmployee(Model model, @RequestParameter long id) {
-//		model.addAttribute("currentPerson", personService.getById(id));
-//		return "overviewEmployee";
-//	}
 
 }

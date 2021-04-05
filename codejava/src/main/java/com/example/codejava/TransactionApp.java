@@ -41,7 +41,8 @@ public class TransactionApp
         return Patient_id;
     }
 
-    public void setPatient_id(String patient_id) {
+    public void setPatient_id(String patient_id)
+    {
         Patient_id = patient_id;
     }
 

@@ -1,13 +1,13 @@
 package com.example.codejava;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class AppController {
@@ -17,7 +17,14 @@ public class AppController {
 
 	@Autowired
 	private TransactionAppRepository apptrepo;
-	
+
+	@Autowired
+	private TestCenterRepository tcrepo;
+
+	@Autowired
+	private AppointmentRepository appointmentRepository;
+
+
 	@GetMapping("/login")
 	public String login()
 	{
@@ -44,6 +51,11 @@ public class AppController {
 	public String Vaccine(Model model)
 	{
 		model.addAttribute("appt", new TransactionApp());
+		List<TestCenter> tstcntr = tcrepo.findAll();
+		model.addAttribute("tstcntr", tstcntr);
+
+//		List<String> vacdate = appointmentRepository.findDistinctvaccineDate();
+//		model.addAttribute("vacdate", vacdate);
 		return "PVaccine.html";
 	}
 
@@ -51,8 +63,55 @@ public class AppController {
 	public String Test(Model model)
 	{
 		model.addAttribute("appt", new TransactionApp());
+		List<TestCenter> tests = tcrepo.findAll();
+		model.addAttribute("tests", tests);
+
 		return "PTest.html";
 
+	}
+
+	@RequestMapping(value = "/Test/Date", method = RequestMethod.GET)
+	public @ResponseBody
+	List<String> findAllDates(@RequestParam(value = "TC", required = true) String TestCenter)
+	{
+		List<String> Datesset = appointmentRepository.findDistinctDate(TestCenter);
+		System.out.println(Datesset);
+		return Datesset;
+	}
+
+	@RequestMapping(value = "/Test/Time", method = RequestMethod.GET)
+	public @ResponseBody
+	List<String> findAllTimes(@RequestParam(value = "TC", required = true) String TestCenter, @RequestParam(value = "TD", required = true)  String TestDate)
+	{
+		System.out.println("TC" + TestCenter);
+		System.out.println("TD" +  TestDate);
+
+		List<String> Timeset = appointmentRepository.findDistinctTime(TestCenter, TestDate);
+		System.out.println(Timeset);
+		return Timeset;
+	}
+
+
+	@RequestMapping(value = "/vaccine/Date", method = RequestMethod.GET)
+	public @ResponseBody
+	List<String> findAllvacDates(@RequestParam(value = "TC", required = true) String TestCenter)
+	{
+		List<String> vacDatesset = appointmentRepository.findDistinctVacDate(TestCenter);
+		System.out.println(vacDatesset);
+		return vacDatesset;
+	}
+
+
+	@RequestMapping(value = "/vaccine/Time", method = RequestMethod.GET)
+	public @ResponseBody
+	List<String> findAllVacTimes(@RequestParam(value = "TC", required = true) String TestCenter, @RequestParam(value = "TD", required = true)  String TestDate)
+	{
+		System.out.println("TCV" + TestCenter);
+		System.out.println("VD" +  TestDate);
+
+		List<String> vacTimeset = appointmentRepository.findDistinctvacTime(TestCenter, TestDate);
+		System.out.println(vacTimeset);
+		return vacTimeset;
 	}
 	
 	@GetMapping("/register")

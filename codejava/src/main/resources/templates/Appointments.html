@@ -66,7 +66,7 @@
                                 <div class="card-body">
 
                                     <div>
-                                        <table class="table table-striped table-bordered">
+                                        <table class="table table-striped table-bordered table-hover">
                                             <thead class="thead-dark">
                                             <tr>
                                                 <th>Date</th>
@@ -74,15 +74,17 @@
                                                 <th>Test Center</th>
                                                 <th>Time Slot</th>
                                                 <th>Test / Vaccination </th>
+                                                <th></th>
                                             </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="future-id">
                                             <tr th:each="Appointments: ${listAppsFuture}">
                                                 <td th:text="${Appointments.Date}">Date</td>
                                                 <td th:text="${Appointments.Type}">Type</td>
                                                 <td th:text="${Appointments.Test_center}">Test Center</td>
                                                 <td th:text="${Appointments.Timeslot}">Time Slot</td>
                                                 <td th:text="${Appointments.Test_Type}">Test Type</td>
+                                                <td><input type="radio" /></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -94,7 +96,7 @@
                                 <div class="card-body">
 
                                     <div>
-                                        <table class="table table-striped table-bordered">
+                                        <table class="table table-striped table-bordered table-hover">
                                             <thead class="thead-dark">
                                             <tr>
                                                 <th>Date</th>
@@ -102,6 +104,7 @@
                                                 <th>Test Center</th>
                                                 <th>Time Slot</th>
                                                 <th>Test / Vaccination </th>
+                                                <th></th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -111,6 +114,7 @@
                                                 <td th:text="${Appointments.Test_center}">Test Center</td>
                                                 <td th:text="${Appointments.Timeslot}">Time Slot</td>
                                                 <td th:text="${Appointments.Test_Type}">Test Type</td>
+                                                <td><input type="radio" /></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -118,8 +122,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 offset-md-4">
-                            <button type="button" class="btn btn-primary btn-login" id="bttoggle"> Confirm </button>
+                        <div class="col-md-6 offset-md-5">
+                            <button type="button" class="btn btn-primary btn-login" id="view-status"> View Status </button>
                         </div>
                     </div>
                 </div>

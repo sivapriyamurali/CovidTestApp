@@ -29,6 +29,7 @@ public class TransactionApp
     @Column(name = "Type", nullable = true, length = 45)
     private String Type;
 
+
     public Long getId() {
         return id;
     }
@@ -85,5 +86,6 @@ public class TransactionApp
     public void setType(String type) {
         Type = type;
     }
+
 
 }

@@ -1,3 +1,10 @@
+var button = document.getElementById("showDiv");
+button.onclick = showDiv;
+function showDiv(){
+
+    document.getElementById("hide-table").style.display = "block";
+
+}
 $(() => {
     const initTb = () => doGet(['/hc/patients'], (data) => {
         const html = data.map(({fullname, age='', email,id,image}) => (`<tr>

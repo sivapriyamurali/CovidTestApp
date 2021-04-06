@@ -13,7 +13,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/covidjavadb?serverTimezone=UTC
     username: root
-    password: yyf1997213
+    password: admin
   jpa:
     hibernate:
      ddl-auto: none

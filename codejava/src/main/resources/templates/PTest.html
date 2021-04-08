@@ -23,7 +23,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand float-left" href="#">COVID TEST APP</a>
+        <a class="navbar-brand float-left" href="#">COVIDULE</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
 		aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -83,7 +83,7 @@
                             <div class="form-group row">
                                 <label  class="col-md-4 col-form-label text-md-right">Test Type </label>
                                 <div class="col-md-2 col-form-label text-md-right">
-                                    <input type="radio" id="rapidtest"  name="test_type_rapid" class="form-check-input" value="rapidtest" th:field="*{Test_Type}" >
+                                    <input type="radio" id="rapidtest"  checked name="test_type_rapid" class="form-check-input" value="rapidtest" th:field="*{Test_Type}" >
                                     <label> Rapid </label>
                                 </div>
 
@@ -131,7 +131,7 @@
                             </div>
 
 
-                            <div class="col-md-6 offset-md-4">
+                            <div class="text-center">
                                 <button type="Submit" class="btn btn-primary btn-login" id="addtime" > Confirm </button>
                             </div>
 

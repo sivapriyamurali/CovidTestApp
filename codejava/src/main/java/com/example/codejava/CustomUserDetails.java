@@ -51,17 +51,20 @@ public class CustomUserDetails implements UserDetails {
 	@Override
 	public boolean isEnabled()
 	{
-		return true;
+		return user.isEnabled();
 	}
 
-	public String getFullName() {
+	public String getFullName()
+	{
 		return this.user.getName();
 	}
 
-	public String getPhNo() {
+	public String getPhNo()
+	{
 		return this.user.getPhone();
 	}
-	public String getaddress() {
+	public String getaddress()
+	{
 		return this.user.getAddress();
 	}
 

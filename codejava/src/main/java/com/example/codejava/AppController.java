@@ -1,13 +1,25 @@
 package com.example.codejava;
 
+
+import org.hibernate.query.criteria.internal.expression.function.CurrentTimestampFunction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import net.bytebuddy.utility.RandomString;
 
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Date;
+
 
 @Controller
 public class AppController {
@@ -23,6 +35,9 @@ public class AppController {
 
 	@Autowired
 	private AppointmentRepository appointmentRepository;
+
+	@Autowired
+	private CustomUserDetailsService service;
 
 
 	@GetMapping("/login")
@@ -41,6 +56,7 @@ public class AppController {
 
 		model.addAttribute("listAppsPast", listAppsPast);
 		model.addAttribute("listAppsFuture", listAppsFuture);
+		model.addAttribute("apptselec", new TransactionApp());
 
 		return "Appointments";
 	}
@@ -121,19 +137,37 @@ public class AppController {
 		
 		return "Registration.html";
 	}
-	
+
+
+
+
+
 	@PostMapping("/process_register")
-	public String processRegister(User user)
-	{
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String encodedPassword = passwordEncoder.encode(user.getPassword());
-		user.setPassword(encodedPassword);
-		
-		userRepo.save(user);
-		
+	public String processRegister(User user, HttpServletRequest request) throws UnsupportedEncodingException, MessagingException {
+
+		service.registerCustomer(user, getSiteURL(request));
+
 		return "register_success";
 	}
-	
+
+	private String getSiteURL(HttpServletRequest request) {
+		String siteURL = request.getRequestURL().toString();
+		return siteURL.replace(request.getServletPath(), "");
+	}
+
+
+	@GetMapping("/verify")
+	public String verifyUser(@Param("code") String code) {
+		if (service.verify(code))
+		{
+			return "verify_success";
+		}
+		else
+		{
+			return "verify_fail";
+		}
+	}
+
 	@GetMapping("/users")
 	public String listUsers(Model model)
 	{
@@ -165,11 +199,58 @@ public class AppController {
 		return "VaccApptSuccess.html";
 	}
 
+	@PostMapping("/patientindscrn")
+	public String patientindscrn(Model model, TransactionApp apptselec)
+	{
+
+		TransactionApp listappdetail = apptrepo.findBytransactionId(apptselec.getId());
+		System.out.println(apptselec.getId());
+
+		model.addAttribute("listappdetail", listappdetail);
+		return "Patient_IndividualAppointments.html";
+	}
+
 
 	@GetMapping("/PHome")
-	public String PatientHome(Model model)
+	public String PatientHome(Model model, @AuthenticationPrincipal CustomUserDetails userna)
 	{
+		model.addAttribute("user", new User());
+
+
+		User AUser = userRepo.findByEmail(userna.getUsername());
+
+		model.addAttribute("AUser", AUser);
+
+
 		return "PHome";
 	}
+
+	@PostMapping("/update_register")
+	public String updateRegister(User user, Model model, @AuthenticationPrincipal CustomUserDetails userna)
+	{
+
+		User AUser = userRepo.findByEmail(userna.getUsername());
+
+		String nm = user.getName();
+		String em = user.getEmail();
+		String ph = user.getPhone();
+		String ad = user.getAddress();
+		Long id = user.getId();
+
+		AUser.setName(nm);
+		AUser.setEmail(em);
+		AUser.setPhone(ph);
+		AUser.setAddress(ad);
+
+		System.out.println(user.getName());
+		userRepo.updateUser(nm,em,ph,ad,id);
+
+		model.addAttribute("AUser", AUser);
+		model.addAttribute("user", new User());
+
+
+		return "PHome";
+	}
+
 
 }

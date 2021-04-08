@@ -11,23 +11,44 @@ DROP TABLE IF EXISTS `users`;
   `address` varchar(255) NOT NULL,
   `password` varchar(64) NOT NULL,
   `DOB` varchar(20) NOT NULL,
+  `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `enabled` tinyint NOT NULL,
+  `verification_code` varchar(64) DEFAULT NULL,
+  `reset_password_token` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_6dotkott2kjsp8vw4d0m25fb7` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+-- ---------------------------------------------------
+-- Table structure for HCP
+-- ---------------------------------------------------
+
+
+DROP TABLE IF EXISTS `hcp`;
+CREATE TABLE `hcp` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `email` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC
 
 -- ---------------------------------------------------
 -- Table structure for Transation of Appointments
 -- ---------------------------------------------------
-CREATE TABLE `Transaction` (
+
+DROP TABLE IF EXISTS `transaction`;
+CREATE TABLE `transaction` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `Patient_id` varchar(45) NOT NULL,
-  `Date` varchar(50) NOT NULL,
-  `Timeslot` varchar(100) NOT NULL,
-  `Test_center` varchar(45) NOT NULL,
-  `Test_Type` varchar(45) NOT NULL,
-  `Type` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `Patient_id` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Date` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Timeslot` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Test_center` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Test_Type` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Type` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC
+
+
 
 
 -- ----------------------------

@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "users")
@@ -34,6 +36,19 @@ public class User
 
 	@Column(name = "DOB", nullable = true, length = 255)
 	private String dob;
+
+	@Column(name = "created_time", updatable = false)
+	private Date created_time;
+
+	private boolean enabled;
+
+	@Column(name = "verification_code", updatable = false)
+	private String verificationCode;
+
+
+
+	@Column(name = "reset_password_token", nullable = true, length = 255)
+	private String resetPasswordToken;
 
 	public Long getId() {
 		return id;
@@ -89,6 +104,45 @@ public class User
 
 	public void setDob(String dob) {
 		this.dob = dob;
+	}
+
+
+
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public Date getCreated_time() {
+		return created_time;
+	}
+
+	public void setCreated_time(Date created_time) {
+		this.created_time = created_time;
+	}
+
+
+	public String getVerificationCode() {
+		return verificationCode;
+	}
+
+	public void setVerificationCode(String verificationCode)
+	{
+		this.verificationCode = verificationCode;
+	}
+
+	public String getResetPasswordToken()
+	{
+		return resetPasswordToken;
+	}
+
+	public void setResetPasswordToken(String resetPasswordToken)
+	{
+		this.resetPasswordToken = resetPasswordToken;
 	}
 
 }

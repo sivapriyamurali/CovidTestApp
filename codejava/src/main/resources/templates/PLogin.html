@@ -54,29 +54,44 @@
                                     Invalid username and password.
                                 </div>
 
-                                <div class="form-label-group row ">
-                                    <div class="col-md-9 col-lg-8 ">
-                                        <input type="radio" id="usertypePatient" class="custom-control-input " name="usertype"> Patient </div>
-                                    <div class="col-md-9 col-lg-8">
-                                        <input type="radio" id="usertypeProvider" class="custom-control-input" name="usertype"> Provider </div>
+                                        <div class="form-group row">
+                                            <label  class="col-md-4 col-form-label text-md-right">User Type </label>
+                                            <div class="col-md-2 col-form-label text-md-right">
+                                                <input type="radio" id="usertypePatient"  checked name="user_type_patient" class="form-check-input" value="patient"  >
+                                                <label> Patient </label>
+                                            </div>
 
-                                </div>
 
-                                <div class="custom-control custom-checkbox mb-3">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                    <label class="custom-control-label" for="customCheck1">Remember password</label>
-                                </div>
+                                            <div class="col-md-2 col-form-label text-md-right">
+                                                <input type="radio" id="usertypeProvider"  class="form-check-input" name="user_type_provider"  value="provider" >
+                                                <label> Provider </label>
+                                            </div>
+
+                                            </div>
+
+<!--                                <div class="form-label-group row ">-->
+<!--                                    <div class="col-md-9 col-lg-8 ">-->
+<!--                                        <input type="radio" id="usertypePatient" class="custom-control-input " name="usertype"> Patient </div>-->
+<!--                                    <div class="col-md-9 col-lg-8">-->
+<!--                                        <input type="radio" id="usertypeProvider" class="custom-control-input" name="usertype"> Provider </div>-->
+
+<!--                                </div>-->
+
+<!--                                <div class="custom-control custom-checkbox mb-3">-->
+<!--                                    <input type="checkbox" class="custom-control-input" id="customCheck1">-->
+<!--                                    <label class="custom-control-label" for="customCheck1">Remember password</label>-->
+<!--                                </div>-->
                                 <button
-                                        class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
-                                        type="submit" onclick="logIn()">Sign in</button>
+                                        type="submit" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Sign in
+                                </button>
 
                                 </form>
 
                                 <form th:action="@{/register}"
                                       method="get" style="max-width: 600px; margin: 0 auto;">
 
-                                    <button type="submit" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2">
-                                        Register
+                                    <button
+                                            type="submit" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Register
                                     </button>
 
                                 </form>

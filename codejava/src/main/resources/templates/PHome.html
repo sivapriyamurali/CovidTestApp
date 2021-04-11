@@ -44,10 +44,7 @@
             <ul class="navbar-nav ml-auto float-right">
 
                 <li class="nav-item ">
-                    <a class="nav-link text-white" th:href="@{/Test}">Test</a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link text-white" th:href="@{/Vaccine}">Vaccine</a>
+                    <a class="nav-link text-white" th:href="@{/Patient_HomePage}">Home</a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link text-white" th:href="@{/Appointments}">Appointments</a>
@@ -56,7 +53,7 @@
                     <a class="nav-link text-white" th:href="@{/PHome}">Portal</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link text-white" th:href="@{/login}">Sign Out</a>
+                    <a class="nav-link text-white" th:href="@{/signout}">Sign Out</a>
                 </li>
 
             </ul>
@@ -130,19 +127,6 @@ function myFunction()
     document.getElementById("email_address").readOnly = false;
     document.getElementById("phone_number").readOnly = false;
     document.getElementById("present_address").readOnly = false;
-}
-</script>
-<script>
-function myFunction1()
-{
-    document.getElementById("full_name").readOnly = true;
-    document.getElementById("email_address").readOnly = true;
-    document.getElementById("phone_number").readOnly = true;
-    document.getElementById("present_address").readOnly = true;
-
-    $("#my-form").submit();
-
-    return;
 }
 </script>
 

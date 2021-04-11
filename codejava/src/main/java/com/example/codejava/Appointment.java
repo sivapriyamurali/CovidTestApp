@@ -22,7 +22,6 @@ public class Appointment {
 
     private String Type;
 
-
     public Long getID() {
         return ID;
     }

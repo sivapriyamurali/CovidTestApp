@@ -35,10 +35,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class=" navbar-nav ml-auto float-right">
             <li class="nav-item ">
-                <a class="nav-link text-white" th:href="@{/Test}">Test</a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link text-white" th:href="@{/Vaccine}">Vaccine</a>
+                <a class="nav-link text-white" th:href="@{/Patient_HomePage}">Home</a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link text-white" th:href="@{/Appointments}">Appointments</a>
@@ -47,7 +44,7 @@
                 <a class="nav-link text-white" th:href="@{/PHome}">Portal</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link text-white" th:href="@{/login}">Sign Out</a>
+                <a class="nav-link text-white" th:href="@{/signout}">Sign Out</a>
             </li>
         </ul>
     </div>
@@ -71,22 +68,23 @@
                                             <tr>
                                                 <th>Date</th>
                                                 <th>Type</th>
-                                                <th>Test Center</th>
-                                                <th>Time Slot</th>
                                                 <th>Test / Vaccination </th>
-                                                <th></th>
+                                                <th>Time Slot</th>
+                                                <th>Test Center</th>
+                                                <th>Select</th>
                                             </tr>
                                             </thead>
-<!--                                            th:field="*{id}"-->
                                             <tbody id="future-id">
                                             <tr th:each="Appointments: ${listAppsFuture}">
                                                 <td th:text="${Appointments.Date}" >Date</td>
                                                 <td th:text="${Appointments.Type}">Type</td>
-                                                <td th:text="${Appointments.Test_center}">Test Center</td>
-                                                <td th:text="${Appointments.Timeslot}">Time Slot</td>
                                                 <td th:text="${Appointments.Test_Type}">Test Type</td>
+                                                <td th:text="${Appointments.Timeslot}">Time Slot</td>
+                                                <td th:text="${Appointments.Test_center}">Test Center</td>
+
+
                                                 <td>
-                                                    <input type="radio" th:field="*{id}" class="form-check-input" name = "apptselect" th:value="${Appointments.getId()}" />
+                                                    <input type="radio" th:field="*{id}" class="form-check form-check-inline"  style="text-align:center" name = "apptselect" th:value="${Appointments.getId()}" />
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -104,22 +102,22 @@
                                             <tr>
                                                 <th>Date</th>
                                                 <th>Type</th>
-                                                <th>Test Center</th>
-                                                <th>Time Slot</th>
                                                 <th>Test / Vaccination </th>
-                                                <th></th>
+                                                <th>Time Slot</th>
+                                                <th>Test Center</th>
+                                                <th>Select</th>
                                             </tr>
-<!--                                            th:field="*{id}"-->
+
                                             </thead>
                                             <tbody>
                                             <tr th:each="Appointments: ${listAppsPast}">
-                                                <td th:text="${Appointments.Date}">Date</td>
+                                                <td th:text="${Appointments.Date}" >Date</td>
                                                 <td th:text="${Appointments.Type}">Type</td>
-                                                <td th:text="${Appointments.Test_center}">Test Center</td>
-                                                <td th:text="${Appointments.Timeslot}">Time Slot</td>
                                                 <td th:text="${Appointments.Test_Type}">Test Type</td>
+                                                <td th:text="${Appointments.Timeslot}">Time Slot</td>
+                                                <td th:text="${Appointments.Test_center}">Test Center</td>
                                                 <td>
-                                                    <input type="radio" th:field="*{id}" class="form-check-input" name = "apptselect" th:value="${Appointments.getId()}" />
+                                                    <input type="radio" th:field="*{id}" class="form-check form-check-inline"  style="text-align:center" name = "apptselect" th:value="${Appointments.getId()}" />
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -127,7 +125,6 @@
                                     </div>
                                 </div>
                             </div>
-
 
                         <div class="col-md-6 offset-md-5">
                             <button type="Submit" class="btn btn-primary btn-login" id="view-status"> View Status </button>

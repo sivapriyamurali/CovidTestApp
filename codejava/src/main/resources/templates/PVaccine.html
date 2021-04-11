@@ -31,10 +31,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto float-right">
                 <li class="nav-item ">
-                    <a class="nav-link text-white" th:href="@{/Test}">Test</a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link text-white" th:href="@{/Vaccine}">Vaccine</a>
+                    <a class="nav-link text-white" th:href="@{/Patient_HomePage}">Home</a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link text-white" th:href="@{/Appointments}">Appointments</a>
@@ -43,7 +40,7 @@
                     <a class="nav-link text-white" th:href="@{/PHome}">Portal</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link text-white" th:href="@{/login}">Sign Out</a>
+                    <a class="nav-link text-white" th:href="@{/signout}">Sign Out</a>
                 </li>
             </ul>
         </div>
@@ -60,9 +57,17 @@
                 <div class="card">
                     <div class="card-header"><B>Schedule Vaccine Appointment</B></div>
                     <div class="card-body">
+                        <div th:if="${isexist} == true">
+
+                            <h1>Oops!</h1>
+
+                            <div class="alert alert-danger" role="alert" ><p>Looks like you have already scheduled an Vaccination appointment</p></div>
+
+                        </div>
+                        <div th:if="${isexist} == false">
 
 <!--                        <form name="my-form" onsubmit="return validform()" action="success.php" method="">-->
-						<form th:action="@{/Vac_confirm}" th:object="${appt}" method="post" style="max-width: 600px; margin: 0 auto;">
+						<form id="myForm" th:action="@{/Vac_confirm}" th:object="${appt}" method="post" style="max-width: 600px; margin: 0 auto;">
 
                             <div class="form-group row">
                                 <label  class="col-md-4 col-form-label text-md-right">Location </label>
@@ -81,18 +86,18 @@
                             <div class="form-group row">
                                 <label  class="col-md-4 col-form-label text-md-right">Vaccine Type </label>
                                 <div class="col-md-2 col-form-label text-md-right">
-                                    <input type="radio" id="Pfizer"  checked name="vaccine_type_pfizer" class="form-check-input" value="Pfizer" th:field="*{Test_Type}" />
+                                    <input type="radio" id="Pfizer"  checked name="vaccine_type" class="form-check-input" value="Pfizer" th:field="*{Test_Type}" />
                                     <label> Pfizer </label>
                                 </div>
 
 
                                 <div class="col-md-2 col-form-label text-md-right">
-                                    <input type="radio" id="Moderna"  class="form-check-input" name="vaccine_type_moderna"  value="Moderna" th:field="*{Test_Type}" />
+                                    <input type="radio" id="Moderna"  class="form-check-input" name="vaccine_type"  value="Moderna" th:field="*{Test_Type}" />
                                     <label> Moderna</label>
                                 </div>
 
                                 <div class="col-md-2 col-form-label text-md-right">
-                                    <input type="radio" id="Johnson & Johnson"  class="form-check-input" name="vaccine_type_johnson"  value="Johnson & Johnson" th:field="*{Test_Type}" />
+                                    <input type="radio" id="Johnson & Johnson"  class="form-check-input" name="vaccine_type"  value="Johnson & Johnson" th:field="*{Test_Type}" />
                                     <label> J & J </label>
                                 </div>
                             </div>
@@ -130,11 +135,11 @@
 
 
                             <div class="text-center">
-                                <button type="Submit" class="btn btn-primary btn-login" id="addtime" > Confirm </button>
+                                <button type="button" class="btn btn-primary btn-login" id="addtime" onclick="myValidationFunction()"> Confirm </button>
                             </div>
 
                             </form>
-
+                        </div>
                     </div>
                 </div>
             </div>
@@ -213,6 +218,43 @@
             );
         });
 </script>
+
+<script>
+    function myValidationFunction()
+    {
+        tc = document.getElementById("vaccineOrder").value;
+        dt = document.getElementById("date_of_test").value;
+        tm = document.getElementById("time_of_test").value;
+
+
+
+        const rbs = document.querySelectorAll('input[name="vaccine_type"]');
+        let selectedValue;
+        for (const rb of rbs)
+        {
+            if (rb.checked)
+            {
+                selectedValue = rb.value;
+                break;
+            }
+        }
+        alert("The required Fields are not filled");
+        return;
+
+
+        if ((tc.length == 0) || (dt.length == 0)  || (tm.length == 0) )
+        {
+            alert("The required Fields are not filled");
+
+            return;
+        }
+
+        $("#myForm").submit();
+        return;
+
+    }
+</script>
+
 </body>
 
 </html>

@@ -2,9 +2,10 @@ package com.example.codejava;
 
 
 import javax.persistence.*;
+import java.sql.Blob;
 
 @Entity
-@Table(name = "Transaction")
+@Table(name = "transaction")
 public class TransactionApp
 {
     @Id
@@ -28,6 +29,13 @@ public class TransactionApp
 
     @Column(name = "Type", nullable = true, length = 45)
     private String Type;
+
+
+    @Column(name = "Status",  length = 45)
+    private String Status;
+
+    @Column(name = "Report")
+    private String Report;
 
     public Long getId() {
         return id;
@@ -85,6 +93,22 @@ public class TransactionApp
 
     public void setType(String type) {
         Type = type;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
+
+    public String getReport() {
+        return Report;
+    }
+
+    public void setReport(String report) {
+        Report = report;
     }
 
 }

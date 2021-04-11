@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +8,7 @@
 <body>
 
 </body>
-</html><!------ Include the above in your HEAD tag ---------->
+</html>
 <!doctype html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
@@ -15,15 +16,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Fonts -->
-    <!--<link rel="icon" href="Favicon.png">-->
-    <!-- Bootstrap CSS -->
-    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link href="PStyles.css" rel="stylesheet">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-     Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- External CSS -->
@@ -31,7 +23,13 @@
     <title>Appointment History</title>
 </head>
 
-<body>
+<body onload="script();">
+
+<!--<body onload="Jscript(' + ${listappdetail.getDate()} + ');">-->
+
+
+
+
 <!-- Bootstrap Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">COVIDULE</a>
@@ -43,10 +41,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class=" navbar-nav ml-auto float-right">
             <li class="nav-item ">
-                <a class="nav-link text-white" th:href="@{/Test}">Test</a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link text-white" th:href="@{/Vaccine}">Vaccine</a>
+                <a class="nav-link text-white" th:href="@{/Patient_HomePage}">Home</a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link text-white" th:href="@{/Appointments}">Appointments</a>
@@ -55,7 +50,7 @@
                 <a class="nav-link text-white" th:href="@{/PHome}">Portal</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link text-white" th:href="@{/login}">Sign Out</a>
+                <a class="nav-link text-white" th:href="@{/signout}">Sign Out</a>
             </li>
         </ul>
     </div>
@@ -68,46 +63,99 @@
                 <div class="card">
                     <div class="card-header"><B>Appointment Status</B></div>
                     <div class="card-body">
+                        <form name="my-form" th:action="@{/delete_appointment}" th:object="${TransactionApp}" method="get" >
                         <table class="table table-hover table-bordered" id="tableid">
                             <thead class="thead-dark">
                             <tr>
                                 <th >Date</th>
-                                <th >Type</th>
+                                <th >Test/Vaccination</th>
                                 <th >Test Center</th>
                                 <th >TimeSlot</th>
-                                <th >Test/Vaccination</th>
+                                <th >Type</th>
                                 <th >Status</th>
                                 <th >Report</th>
+                                <th>Select</th>
                             </tr>
                             </thead>
 
                             <tbody id="future-id">
-                            <tr th:each="Appointments: ${listappdetail}">
-                                <td th:text="${Appointments.Date}" >Date</td>
-                                <td th:text="${Appointments.Type}">Type</td>
-                                <td th:text="${Appointments.Test_center}">Test Center</td>
-                                <td th:text="${Appointments.Timeslot}">Time Slot</td>
-                                <td th:text="${Appointments.Test_Type}">Test Type</td>
+                            <tr th:object="${listappdetail}">
+                                <td th:text="${listappdetail.Date}" >Date</td>
+                                <td th:text="${listappdetail.Type}">Type</td>
+                                <td th:text="${listappdetail.Test_center}">Test Center</td>
+                                <td th:text="${listappdetail.Timeslot}">Time Slot</td>
+                                <td th:text="${listappdetail.Test_Type}">Test Type</td>
+
+                                <div th:if="${listappdetail.Type} == Vaccination">
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+
+                                </div>
+
+                                <div th:if="${listappdetail.Type} == Test">
+
+                                    <div th:if="${listappdetail.Status} == null">
+                                        <td>Report Not Ready</td>
+                                    </div>
+                                    <div th:if="${listappdetail.Status} != null">
+                                        <td th:text="${listappdetail.Status}">Status</td>
+                                    </div>
+
+
+                                    <td><a th:href="${listappdetail.getReport()}" download>Report</a></td>
+
+                                </div>
+
+
+<!--                                <a href="appt1.jpg" download>Report</a>-->
                                 <td>
+                                    <input type="radio" th:field="*{id}" class="form-check form-check-inline"  name = "apptselect" th:value="${listappdetail.getId()}"/>
+                                </td>
+
                             </tr>
                             <tbody id="tbodyid">
 
                             </tbody>
                         </table>
-                        <div class="col-md-6 offset-md-4">
-                            <button type="button" class="btn btn-primary btn-login" id="reschedule" > Reschedule </button>
-                            <button type="button" class="btn btn-primary btn-login" id="cancel" > Cancel </button>
+                        <div class="text-center">
+<!--                            <button type="button" class="btn btn-primary btn-login" id="reschedule" > Reschedule </button>-->
+                            <button type="Submit" class="btn btn-primary btn-login" id="cancel" > Delete </button>
                         </div>
+                        </form>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 </main>
-<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>-->
-<script src="Patient_IndividualAppointments.js"></script>
+
+<script th:inline="javascript">
+
+    function script()
+    {
+        var date = [[${listappdetail.Date}]];
+        var day = new Date().getDate();
+        var month = new Date().getMonth();
+        var year = new Date().getFullYear();
+        var datestring = year + "-" + ("0"+(month+1)).slice(-2) + "-" + ("0" + day).slice(-2);
+
+       // var rs = document.getElementById("reschedule");
+        var cn = document.getElementById("cancel");
+
+
+        if (date <= datestring)
+        {
+          //  rs.remove();
+            cn.remove();
+
+        }
+
+    }
+
+</script>
+
+
 </body>
 
 </html>

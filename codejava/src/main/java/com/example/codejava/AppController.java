@@ -1,24 +1,21 @@
 package com.example.codejava;
 
 
-import org.hibernate.query.criteria.internal.expression.function.CurrentTimestampFunction;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import net.bytebuddy.utility.RandomString;
-
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
 
 
 @Controller
@@ -43,46 +40,119 @@ public class AppController {
 	@GetMapping("/login")
 	public String login()
 	{
-		return "PLogin.html";
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication == null || authentication instanceof AnonymousAuthenticationToken)
+		{
+			return "PLogin.html";
+		}
+
+		else
+		{
+			return "Patient_HomePage";
+		}
+
 	}
 
 
 	@GetMapping("/Appointments")
 	public String Appointments(Model model, @AuthenticationPrincipal CustomUserDetails userna)
 	{
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication == null || authentication instanceof AnonymousAuthenticationToken)
+		{
+			return "PLogin.html";
+		}
 
-		List<TransactionApp> listAppsPast = apptrepo.findByNamePastAppointments(userna.getUsername());
-		List<TransactionApp> listAppsFuture = apptrepo.findByNameFutureAppointments(userna.getUsername());
+		else
+		{
+			List<TransactionApp> listAppsPast = apptrepo.findByNamePastAppointments(userna.getUsername());
+			List<TransactionApp> listAppsFuture = apptrepo.findByNameFutureAppointments(userna.getUsername());
 
-		model.addAttribute("listAppsPast", listAppsPast);
-		model.addAttribute("listAppsFuture", listAppsFuture);
-		model.addAttribute("apptselec", new TransactionApp());
+			model.addAttribute("listAppsPast", listAppsPast);
+			model.addAttribute("listAppsFuture", listAppsFuture);
+			model.addAttribute("apptselec", new TransactionApp());
 
-		return "Appointments";
+			return "Appointments";
+		}
+
+
 	}
 
 
 
 	@GetMapping("/Vaccine")
-	public String Vaccine(Model model)
+	public String Vaccine(Model model,  @AuthenticationPrincipal CustomUserDetails userna)
 	{
-		model.addAttribute("appt", new TransactionApp());
-		List<TestCenter> tstcntr = tcrepo.findAll();
-		model.addAttribute("tstcntr", tstcntr);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication == null || authentication instanceof AnonymousAuthenticationToken)
+		{
+			return "PLogin.html";
+		}
 
-//		List<String> vacdate = appointmentRepository.findDistinctvaccineDate();
-//		model.addAttribute("vacdate", vacdate);
-		return "PVaccine.html";
+		else
+		{
+			TransactionApp checkVaccineappt = apptrepo.findByVaccineFutureAppointments(userna.getUsername());
+			boolean isexist;
+
+			if(checkVaccineappt == null)
+			{
+				isexist = false;
+			}
+			else
+			{
+				isexist = true;
+			}
+			model.addAttribute("isexist", isexist);
+
+			List<TestCenter> tstcntr = tcrepo.findAll();
+
+			model.addAttribute("tstcntr", tstcntr);
+
+			model.addAttribute("appt", new TransactionApp());
+
+			return "PVaccine.html";
+		}
+
+
 	}
 
 	@GetMapping("/Test")
-	public String Test(Model model)
+	public String Test(Model model, @AuthenticationPrincipal CustomUserDetails userna)
 	{
-		model.addAttribute("appt", new TransactionApp());
-		List<TestCenter> tests = tcrepo.findAll();
-		model.addAttribute("tests", tests);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication == null || authentication instanceof AnonymousAuthenticationToken)
+		{
+			return "PLogin.html";
+		}
 
-		return "PTest.html";
+		else
+		{
+			TransactionApp checkApptExist = apptrepo.findByTestFutureAppointments(userna.getUsername());
+			boolean isexist;
+
+
+			/* If there is an no future Appointment */
+			if( checkApptExist == null)
+			{
+				isexist = false;
+			}
+			/* If there is an future Appointment */
+			else
+			{
+				isexist = true;
+			}
+
+			model.addAttribute("isexist", isexist);
+
+			List<TestCenter> tests = tcrepo.findAll();
+
+			model.addAttribute("tests", tests);
+
+			model.addAttribute("appt", new TransactionApp());
+			return "PTest.html";
+
+		}
+
 
 	}
 
@@ -101,10 +171,33 @@ public class AppController {
 	{
 		System.out.println("TC" + TestCenter);
 		System.out.println("TD" +  TestDate);
+		List<String> Timesetfinal= new ArrayList<>();
+		int numberofslots;
 
-		List<String> Timeset = appointmentRepository.findDistinctTime(TestCenter, TestDate);
-		System.out.println(Timeset);
-		return Timeset;
+
+
+		List<String> time = appointmentRepository.findDistinctTestTime(TestCenter, TestDate);
+		System.out.println(time);
+		System.out.println(time.get(0));
+
+		long sl[] = new long[time.size()];
+
+		for (int i = 0; i < time.size(); i++)
+		{
+			sl[i] = appointmentRepository.findDistinctTestSlot(TestCenter, TestDate,time.get(i));
+			numberofslots = apptrepo.CountSlots(TestCenter, TestDate,time.get(i));
+
+			if(numberofslots < sl[i])
+			{
+				Timesetfinal.add(time.get(i));
+			}
+			else
+			{
+
+			}
+
+		}
+		return Timesetfinal;
 	}
 
 
@@ -124,22 +217,40 @@ public class AppController {
 	{
 		System.out.println("TCV" + TestCenter);
 		System.out.println("VD" +  TestDate);
+		List<String> Timesetfinal= new ArrayList<>();
+		int numberofslots;
 
-		List<String> vacTimeset = appointmentRepository.findDistinctvacTime(TestCenter, TestDate);
-		System.out.println(vacTimeset);
-		return vacTimeset;
+		List<String> time = appointmentRepository.findDistinctvacTime(TestCenter, TestDate);
+		System.out.println(time);
+		System.out.println(time.get(0));
+
+		long sl[] = new long[time.size()];
+
+		for (int i = 0; i < time.size(); i++)
+		{
+			sl[i] = appointmentRepository.findDistinctVaccineSlot(TestCenter, TestDate,time.get(i));
+			numberofslots = apptrepo.CountSlotsVac(TestCenter, TestDate,time.get(i));
+
+			if(numberofslots < sl[i])
+			{
+				Timesetfinal.add(time.get(i));
+			}
+			else
+			{
+
+			}
+
+		}
+		return Timesetfinal;
 	}
 	
 	@GetMapping("/register")
 	public String showRegistrationForm(Model model)
 	{
 		model.addAttribute("user", new User());
-		
+
 		return "Registration.html";
 	}
-
-
-
 
 
 	@PostMapping("/process_register")
@@ -214,15 +325,38 @@ public class AppController {
 	@GetMapping("/PHome")
 	public String PatientHome(Model model, @AuthenticationPrincipal CustomUserDetails userna)
 	{
-		model.addAttribute("user", new User());
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication == null || authentication instanceof AnonymousAuthenticationToken)
+		{
+			return "PLogin.html";
+		}
+		else
+		{
+			model.addAttribute("user", new User());
 
+			User AUser = userRepo.findByEmail(userna.getUsername());
 
-		User AUser = userRepo.findByEmail(userna.getUsername());
+			model.addAttribute("AUser", AUser);
 
-		model.addAttribute("AUser", AUser);
+			return "PHome";
+		}
 
+	}
 
-		return "PHome";
+	@GetMapping("/Patient_HomePage")
+	public String PatientHomePage()
+	{
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication == null || authentication instanceof AnonymousAuthenticationToken)
+		{
+			return "PLogin.html";
+		}
+
+		else
+		{
+			return "Patient_HomePage";
+		}
+
 	}
 
 	@PostMapping("/update_register")
@@ -250,6 +384,24 @@ public class AppController {
 
 
 		return "PHome";
+	}
+
+	@GetMapping("/delete_appointment")
+	public String deleteAppointment(TransactionApp trans, Model model, @AuthenticationPrincipal CustomUserDetails userna)
+	{
+
+		System.out.println(trans.getId());
+		System.out.println(trans.getReport());
+		apptrepo.deleteBytransactionId(trans.getId());
+
+
+		List<TransactionApp> listAppsPast = apptrepo.findByNamePastAppointments(userna.getUsername());
+		List<TransactionApp> listAppsFuture = apptrepo.findByNameFutureAppointments(userna.getUsername());
+
+		model.addAttribute("listAppsPast", listAppsPast);
+		model.addAttribute("listAppsFuture", listAppsFuture);
+		model.addAttribute("apptselec", new TransactionApp());
+		return "Appointments";
 	}
 
 

@@ -12,6 +12,7 @@ public class User
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	/* This is to enter user name */
 	@Column(name = "fullname", nullable = false, length = 20)
 	private String Name;
 

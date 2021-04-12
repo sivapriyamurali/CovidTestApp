@@ -20,3 +20,5 @@ Step 8: Create a Pull Request to merge to master
 
 Step 9: If no Conflicts are present merge to the Master.
 
+Step 10: Delete the Branch.
+

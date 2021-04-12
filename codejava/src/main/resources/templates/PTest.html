@@ -235,20 +235,22 @@
         antigen = document.getElementById("antigentest").value;
 
 
-            const rbs = document.querySelectorAll('input[name="test_type"]');
-            let selectedValue;
-            for (const rb of rbs)
-            {
-                if (rb.checked)
-                {
-                    selectedValue = rb.value;
-                    break;
-                }
-            }
-            // alert("The required Fields are not filled");
-            // return;
 
+        if(document.getElementById('rapidtest').checked) {
 
+        }else if(document.getElementById('rtpcrtest').checked) {
+
+        }
+        else if(document.getElementById('antigentest').checked)
+        {
+
+        }
+        else
+        {
+            alert("The required Fields are not Selected");
+
+            return;
+        }
 
         if ((tc.length == 0) || (dt.length == 0)  || (tm.length == 0) )
         {

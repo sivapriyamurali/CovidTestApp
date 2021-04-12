@@ -12,15 +12,21 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
 
+    @Column(name = "`Test Center`")
     private String Test_Center ;
 
+    @Column(name = "`Date`")
     private String Date ;
 
+    @Column(name = "`Time`")
     private String Time;
 
+    @Column(name = "`Number of Slots`")
     private Long Number_of_Slots;
 
+    @Column(name = "`Type`")
     private String Type;
+
 
     public Long getID() {
         return ID;

@@ -10,6 +10,7 @@ import java.util.List;
 public interface AppointmentRepository extends JpaRepository<Appointment, Long>
 {
 
+
     @Query("SELECT DISTINCT u.Date FROM Appointment u where u.Type = 'Test' and u.Test_Center = ?1 ")
     List<String> findDistinctDate(String testCenter);
 

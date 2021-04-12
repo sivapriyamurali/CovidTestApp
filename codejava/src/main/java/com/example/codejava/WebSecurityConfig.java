@@ -17,46 +17,50 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	@Autowired
-	private DataSource dataSource;
-	
-	@Bean
-	public UserDetailsService userDetailsService() {
-		return new CustomUserDetailsService();
-	}
-	
-	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-	
-	@Bean
-	public DaoAuthenticationProvider authenticationProvider() {
-		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-		authProvider.setUserDetailsService(userDetailsService());
-		authProvider.setPasswordEncoder(passwordEncoder());
-		
-		return authProvider;
-	}
+    @Autowired
+    private DataSource dataSource;
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(authenticationProvider());
-	}
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new CustomUserDetailsService();
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+
+        return authProvider;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
+    }
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-			.antMatchers("/users").authenticated()
-			.anyRequest().permitAll()
-			.and()
-			.formLogin()
-			.loginPage("/login")
-				.usernameParameter("email")
-				.defaultSuccessUrl("/Patient_HomePage")
-				.permitAll()
-			.and()
-			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/signout")).logoutSuccessUrl("/login");
+		http
+                .authorizeRequests()
+//                .antMatchers("/users", "/hc/**").authenticated()
+                .antMatchers("/users").authenticated()
+                .anyRequest()
+                .permitAll()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .usernameParameter("email")
+                .defaultSuccessUrl("/login-success")
+                .permitAll()
+                .and()
+			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/signout"))
+			.logoutSuccessUrl("/login");
 	}
 	
 	

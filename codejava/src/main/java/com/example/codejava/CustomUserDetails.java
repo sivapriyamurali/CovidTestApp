@@ -63,9 +63,17 @@ public class CustomUserDetails implements UserDetails {
 	{
 		return this.user.getPhone();
 	}
+
 	public String getaddress()
 	{
 		return this.user.getAddress();
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

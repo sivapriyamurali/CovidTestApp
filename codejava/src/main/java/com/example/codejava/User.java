@@ -1,11 +1,6 @@
 package com.example.codejava;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -13,8 +8,6 @@ import java.util.Date;
 @Table(name = "users")
 public class User 
 {
-
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -45,10 +38,12 @@ public class User
 	@Column(name = "verification_code", updatable = false)
 	private String verificationCode;
 
-
-
 	@Column(name = "reset_password_token", nullable = true, length = 255)
 	private String resetPasswordToken;
+
+
+	@Transient
+	private String type;
 
 	public Long getId() {
 		return id;
@@ -145,4 +140,11 @@ public class User
 		this.resetPasswordToken = resetPasswordToken;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 }

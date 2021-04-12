@@ -1,40 +1,45 @@
 package com.example.codejava;
 
 
-
+import org.hibernate.query.criteria.internal.expression.function.CurrentTimestampFunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import net.bytebuddy.utility.RandomString;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
+import java.util.Objects;
 
 
 @Controller
 public class AppController {
 
-	@Autowired
-	private UserRepository userRepo;
+    @Autowired
+    private UserRepository userRepo;
 
-	@Autowired
-	private TransactionAppRepository apptrepo;
+    @Autowired
+    private TransactionAppRepository apptrepo;
 
-	@Autowired
-	private TestCenterRepository tcrepo;
+    @Autowired
+    private TestCenterRepository tcrepo;
 
-	@Autowired
-	private AppointmentRepository appointmentRepository;
+    @Autowired
+    private AppointmentRepository appointmentRepository;
 
-	@Autowired
-	private CustomUserDetailsService service;
+    @Autowired
+    private CustomUserDetailsService service;
 
 
 	@GetMapping("/login")
@@ -153,13 +158,13 @@ public class AppController {
 
 		}
 
-
 	}
 
 	@RequestMapping(value = "/Test/Date", method = RequestMethod.GET)
 	public @ResponseBody
 	List<String> findAllDates(@RequestParam(value = "TC", required = true) String TestCenter)
 	{
+		System.out.println(TestCenter);
 		List<String> Datesset = appointmentRepository.findDistinctDate(TestCenter);
 		System.out.println(Datesset);
 		return Datesset;
@@ -278,6 +283,18 @@ public class AppController {
 			return "verify_fail";
 		}
 	}
+
+    @GetMapping("login-success")
+    public String loginSuccess(Model model) {
+        final CustomUserDetails details =  (com.example.codejava.CustomUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final var user = details.getUser();
+        model.addAttribute("AUser", user);
+        if (Objects.equals(user.getType(), "Patient")) {
+            return "Patient_HomePage";
+        } else {
+            return "HC_Home";
+        }
+    }
 
 	@GetMapping("/users")
 	public String listUsers(Model model)
@@ -404,5 +421,17 @@ public class AppController {
 		return "Appointments";
 	}
 
+    @Autowired
+    private TestCenterRepository centerRepository;
 
+    @GetMapping("/hc/test-center")
+    public String home() {
+        return "HC_Home";
+    }
+
+    @GetMapping("/hc/test-centers")
+    @ResponseBody
+    public List<TestCenter> getCenters() {
+        return centerRepository.findAll();
+    }
 }

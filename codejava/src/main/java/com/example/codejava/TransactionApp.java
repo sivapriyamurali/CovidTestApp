@@ -34,8 +34,9 @@ public class TransactionApp
     @Column(name = "Status",  length = 45)
     private String Status;
 
-    @Column(name = "Report")
+    @Column(name = "image")
     private String Report;
+
 
     public Long getId() {
         return id;

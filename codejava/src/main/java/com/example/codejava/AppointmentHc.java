@@ -59,7 +59,7 @@ public class AppointmentHc {
 
     private Date parseDate() {
         try {
-            return new SimpleDateFormat("dd/MM/yyyy").parse(date);
+            return new SimpleDateFormat("yyyy-MM-dd").parse(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -88,7 +88,7 @@ public class AppointmentHc {
 
     public void buildRecord() {
         if (null != year) {
-            this.date = String.format("%s/%s/%s", day, month, year);
+            this.date = String.format("%s-%s-%s", year, month,day );
         }
     }
 

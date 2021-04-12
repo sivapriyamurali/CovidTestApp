@@ -35,7 +35,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-9 col-lg-8 mx-auto">
-                            <h3 class="login-heading mb-4">Welcome!</h3>
+                            <h3 class="login-heading mb-4">Welcome to COVIDULE!</h3>
                             <!--                            <form th:action="@{/login}" method="post" class="needs-validation">-->
                             <!--                                <form  method="post" >-->
                             <form name="f" th:action="@{/login}" method="post">
@@ -66,26 +66,25 @@
                                     Invalid username and password.
                                 </div>
 
-                                        <div class="form-group row">
-                                            <label  class="col-md-4 col-form-label text-md-right">User Type </label>
-                                    <div class="col-md-9 col-lg-8 ">
-                                        <input type="radio"
-                                               id="usertypePatient"
-                                               value="Patient"
-                                               class="custom-control-input "
-                                               name="usertype" checked> Patient
-                                    </div>
+                                <div class="form-group row ">
+                                    <label class="col-md-4 col-form-label text-md-left"> User Type </label>
+                                                <div class="col-md-3 col-form-label">
+                                                    <input type="radio"
+                                                        id="usertypePatient"
+                                                       value="Patient"
+                                                       class="custom-control-input "
+                                                       name="usertype" checked> Patient
+                                                </div>
 
 
-                                    <div class="col-md-9 col-lg-8">
-                                        <input type="radio"
-                                               id="usertypeProvider"
-                                               value="Provider"
-                                               class="custom-control-input"
-                                               name="usertype"> Provider
-                                    </div>
-
-                                            </div>
+                                                <div class="col-md-3 col-form-label">
+                                                    <input type="radio"
+                                                           id="usertypeProvider"
+                                                           value="Provider"
+                                                           class="custom-control-input"
+                                                           name="usertype"> Provider
+                                                </div>
+                                </div>
 
 <!--                                <div class="form-label-group row ">-->
 <!--                                    <div class="col-md-9 col-lg-8 ">-->
@@ -100,23 +99,26 @@
 class="custom-control-input" id="customCheck1">-->
 <!--                                    <label class="custom-control-label" for="customCheck1">Remember password</label>-->
 <!--                                </div>-->
+
+                            <div class="form-group row">
                                 <button
-                                        class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                                        class="btn btn-primary btn-lg btn-block btn-login text-uppercase font-weight-bold mb-2"
                                         type="submit">Sign in
                                 </button>
 
+                            </div>
                             </form>
-
                             <form th:action="@{/register}"
                                   method="get"
                                   style="max-width: 600px; margin: 0 auto;">
-
-                                <button type="submit"
-                                        class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2">
-                                    Register
-                                </button>
-
+                                <div class="row">
+                                    <button type="submit"
+                                            class="btn btn-primary btn-lg btn-block btn-login text-uppercase font-weight-bold mb-2">
+                                        Register
+                                    </button>
+                                </div>
                             </form>
+
 
                             <div class="text-justify">
                                 <a class="small" th:href="@{/forgot_password}">Forgot

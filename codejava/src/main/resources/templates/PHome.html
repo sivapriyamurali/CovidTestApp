@@ -102,7 +102,7 @@
                                 <div class="col-4"></div>
                                 <div class="col-2">
 
-                                    <button type="button" class="btn btn-primary btn-login" onclick="myFunction()" > Edit </button>
+                                    <button type="button" class="btn btn-primary btn-login" onclick="myFunction()" id="edit-btn"> Edit </button>
 
                                 </div>
 
@@ -127,6 +127,11 @@ function myFunction()
     document.getElementById("email_address").readOnly = false;
     document.getElementById("phone_number").readOnly = false;
     document.getElementById("present_address").readOnly = false;
+    let editButton = document.getElementById("edit-btn");
+    if (editButton.innerHTML = "Edit"){
+        editButton.innerHTML = "Cancel";
+    }
+
 }
 </script>
 

@@ -11,7 +11,7 @@ body{
 
 
 .bg-image {
-    background-image: url('/static/img/bk.jpeg');
+    background-image: url('/static/Image1.jpeg');
     background-position: center;
     background-size: auto ;
 
@@ -19,19 +19,6 @@ body{
 
 
 transparent card
-.card {
-    background-color: rgba(15, 8, 8, 0.55);
-    padding-top: 10px;
-    padding-bottom: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    border-radius: 15px;
-    border-color: #d2d2d2;
-    border-width: 3px;
-    color: white;
-    box-shadow: 0 1px 0 #cfcfcf;
-    background: transparent !important;
-}
 
 
 
@@ -77,26 +64,7 @@ body {
     --input-padding-x: 1.5rem;
     --input-padding-y: 0.75rem;
 }
-body{
-    background:black;
-}
 
-
-.bg-image {
-    background-image: url('/img/bk.jpeg');
-    background-position: center;
-    background-size: auto ;
-
-}
-.my-form {
-    padding-top: 5.5rem;
-    padding-bottom: 1.5rem;
-}
-
-.my-form .row {
-    margin-left: 0;
-    margin-right: 0;
-}
 .content {
     overflow: none;
     max-width: 790px;

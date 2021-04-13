@@ -3,18 +3,25 @@
 :root {
     --input-padding-x: 1.5rem;
     --input-padding-y: 0.75rem;
+
 }
 
 .login,
 .image {
     min-height: 100vh;
 }
-
-.bg-image {
+body{
+    background:black;
+    color: white;
+}
+a.small{
+    color:white;
+}
+/*.bg-image {
     background-image: url('Image1.jpeg');
     background-size: center;
     background-position: cover;
-}
+}*/
 
 .login-heading {
     font-weight: 300;

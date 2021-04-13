@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -42,6 +43,16 @@ public class AppointmentApi {
         appointment.buildRecord();
         centerRepository.findById(appointment.getCenterId()).ifPresent((cen) -> {
             appointment.setTestCenter(cen.getName());
+            if (appointment.getAppointmentId() == null) {
+                repository
+                        .findByTestCenterAndDateAndTimeAndType(appointment.getTestCenter(),
+                                appointment.getDate(),
+                                appointment.getTime(), appointment.getType())
+                        .ifPresent(a -> {
+                            appointment.setAppointmentId(a.getAppointmentId());
+                            appointment.setInvitedCount(appointment.getInvitedCount() + a.getInvitedCount());
+                        });
+            }
             repository.save(appointment);
         });
         return ResponseEntity.ok(true);

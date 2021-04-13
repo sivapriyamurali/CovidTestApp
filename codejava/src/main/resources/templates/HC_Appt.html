@@ -25,7 +25,7 @@
     <div class="container-fluid">
         <div class="row"></div>
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="card-wrapper">
                 <div class="card">
                     <div class="card-header">Appointments</div>
                     <div class="card-body">
@@ -71,18 +71,28 @@
                                             </tbody>
                                         </table>
                                     </div>
+
+                                </div>
+                                <div class="btn-groups">
                                     <button class="button btn-sm"
                                             id="add-button">Add Appointment
                                     </button>
+
+                                    <button class="button btn-sm"
+                                            id="update-button">Update
+                                        Appointment
+                                    </button>
+                                    <button class="button btn-sm"
+                                            id="delete-button">Delete Appointment
+                                    </button>
                                 </div>
-                                <button class="button btn-sm"
-                                        id="delete-button">Delete Appointment
-                                </button>
+
                             </div>
                             <div class="events-container">
                             </div>
                             <div class="dialog" id="dialog">
-                                <h2 class="dialog-header"> Add New
+                                <h2 class="dialog-header" id="updateDlgHd"> Add
+                                    New
                                     Appointment </h2>
                                 <form class="form" id="form">
                                     <div class="form-container"
@@ -111,7 +121,7 @@
                                             <option value="2:00PM-3:00PM">
                                                 2:00PM-3:00PM
                                             </option>
-                                            <option value=",3:00PM-4:00PM">
+                                            <option value="3:00PM-4:00PM">
                                                 3:00PM-4:00PM
                                             </option>
                                         </select>
@@ -145,8 +155,10 @@
                             </div>
                             <!--Rmz-->
 
+
+
                             <div class="deldialog" id="deldialog">
-                                <h2 class="dialog-header"> Delete
+                                <h2 class="dialog-header" > Delete
                                     Appointment </h2>
                                 <form class="form" id="delform">
                                     <div class="form-container"  align="center">

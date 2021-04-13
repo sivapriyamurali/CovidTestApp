@@ -8,6 +8,8 @@ $(document).ready(function () {
     $(".left-button").click({date: date}, prev_year);
     $(".month").click({date: date}, month_click);
     $("#add-button").click({date: date}, new_event);
+    $("#update-button").click({date: date}, update_event);
+
     //rmz: Added the delete button click event
     $("#delete-button").click({date: date}, delete_event);
     // Set current month as active
@@ -125,6 +127,92 @@ function prev_year(event) {
     init_calendar(date);
 }
 
+function update_event(event) {
+    console.info('update')
+    const id = $("input[type=radio]:checked").attr('data-id')
+    if (!id) return
+    const {events = []} = event_data
+    const appointment = events.find(d => d.appointmentId === parseInt(id))
+    if (!appointment) return;
+
+    $("#deldialog").hide(250);
+    // if a date isn't selected then do nothing
+    if ($(".active-date").length === 0)
+        return;
+
+    // remove red error input on click
+    $("input").click(function () {
+        $(this).removeClass("error-input");
+    })
+
+
+    var date = event.data.date
+    const choiceDate = new Date(`${ date.getFullYear()}-${date.getMonth() + 1}-${ parseInt($(".active-date").html())}`)
+    const now = new Date()
+    const dateNow = new Date(`${ now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`)
+
+    console.info('not choice',choiceDate,dateNow)
+    if (choiceDate < dateNow) {
+
+        return;
+    }
+
+    const {invited_count, type, time} = appointment
+    $('#count').val(invited_count)
+
+
+
+    $('#updateDlgHd').text('Update Appointment');
+    $("#dialog").show(250);
+    $(`#type option[value=${type}]`).attr('selected', true)
+    $(`#time option[value='${time}']`).attr('selected', true)
+    // Event handler for cancel button
+    $("#cancel-button").click(function () {
+        //$("#name").removeClass("error-input");
+        $("#count").removeClass("error-input");
+        $("#dialog").hide(250);
+        $("#deldialog").hide(250);
+        $(".events-container").show(250);
+    });
+
+    // Event handler for ok button
+    $("#ok-button").unbind().click({date: event.data.date}, function () {
+        var date = event.data.date;
+        //var name = $("#name").val().trim();
+        var time = $("#time").val().trim();
+        var invitedCount = parseInt($("#count").val().trim());
+        var day = parseInt($(".active-date").html());
+        // Basic form validation
+        //if(name.length === 0) {
+        //    $("#name").addClass("error-input");
+        //}
+        if (isNaN(invitedCount)) {
+            $("#count").addClass("error-input");
+        } else {
+            $("#dialog").hide(250);
+            $("#deldialog").hide(250);
+
+
+            const data = {
+                day,
+                invitedCount,
+                time,
+                year: date.getFullYear(),
+                month: date.getMonth() + 1,
+                type: $('#type').val()
+            }
+            data.centerId = $('#centerId').val();
+            data.appointmentId = id
+            doPost(['/hc/appointments', JSON.stringify(data)], (rlt) => {
+                console.info('rlt', rlt)
+                refreshData()
+                date.setDate(day);
+                init_calendar(date);
+            })
+        }
+    });
+}
+
 // Event handler for clicking the new event button
 function new_event(event) {
     //if delete appointment dialog is open , then close it
@@ -136,10 +224,23 @@ function new_event(event) {
     $("input").click(function () {
         $(this).removeClass("error-input");
     })
+    var date = event.data.date
+    const choiceDate = new Date(`${ date.getFullYear()}-${date.getMonth() + 1}-${ parseInt($(".active-date").html())}`)
+    const now = new Date()
+    const dateNow = new Date(`${ now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`)
+
+    console.info('not choice',choiceDate,dateNow)
+    if (choiceDate < dateNow) {
+
+        return;
+    }
+
     // empty inputs and hide events
     $("#dialog input[type=text]").val('');
     $("#dialog input[type=number]").val('');
     $(".events-container").hide(250);
+
+    $('#updateDlgHd').text('Add New Appointment');
     $("#dialog").show(250);
     // Event handler for cancel button
     $("#cancel-button").click(function () {
@@ -262,10 +363,11 @@ function show_events(events, month, day) {
     } else {
         // Go through and add each event as a card to the events container
         for (var i = 0; i < events.length; i++) {
+            const event = events[i]
             event_card = $("<div class='event-card'></div>");
 
 
-            event_time = $("<div class='event-time'>" + events[i]["time"] + ":</div>");
+            event_time = $(`<div class='event-time hc-row'> <div class="hc-tag">${event.type}</div> ${event.time}:</div>`);
 
             var event_count = $("<div class='event-count'>" + events[i]["invited_count"] + ` Appointments <input data-day=${events[i]?.day} data-id=${events[i]?.appointmentId} type = 'radio' ></div>`);
 
@@ -273,7 +375,7 @@ function show_events(events, month, day) {
                 $(event_card).css({
                     "border-left": "10px solid #FF1744"
                 });
-                event_time = $("<div class='event-time'>" + events[i]["time"] + ":</div>")
+                event_time = $(`<div class='event-time'>${event.time}:</div>`)
                 event_count = $("<div class='event-cancelled'>Cancelled</div>");
             }
             $(event_card).append(event_time).append(event_count);
@@ -319,7 +421,7 @@ let event_data = {
 };
 
 const refreshData = () => {
-    const centerId =  $('#centerId').val()
+    const centerId = $('#centerId').val()
     doGet([`appointments/${centerId}`], (rlt) => {
 
         const events = rlt.map(({

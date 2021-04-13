@@ -1,9 +1,9 @@
 $(() => {
 
     const renderTb = (data) => {
-        const html = data.map(({fullname, age = '', email, id, image}) => (`<tr>
+        const html = data.map(({fullname, testCenter, email, id, image}) => (`<tr>
                             <td>${fullname}</td>
-                            <td>${age}</td>
+                            <td>${testCenter}</td>
                             <td>${email}</td>
                             <td>${image ? ` <img class="img-report" src="data:image/png;base64, ${image}"  />` : ''}</td>
 

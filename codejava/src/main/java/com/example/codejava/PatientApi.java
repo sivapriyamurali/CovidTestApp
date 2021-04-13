@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -36,7 +37,12 @@ public class PatientApi {
         repository.findById(id).ifPresent((p) ->
                 {
                     transactionRepository.findByPatientId(p.getEmail())
-                            .ifPresent((t) -> p.setStatus(t.getStatus()));
+                            .ifPresent((t) -> {
+                                p.setStatus(t.getStatus());
+                                p.setTimesLot(t.getTimeslot());
+                                p.setDate(t.getDate());
+                                p.setUploaded(t.getImage() != null);
+                            });
                     model.addAttribute("patient", p);
                 }
         );
@@ -50,12 +56,25 @@ public class PatientApi {
         if (StringUtils.isBlank(keyword)) {
             return repository.findAll()
                     .stream().peek(p -> transactionRepository.findByPatientId(p.getEmail())
-                            .ifPresent(t -> p.setImage(t.getImage64()))).collect(Collectors.toList());
+                            .ifPresent(t -> {
+                                p.setImage(t.getImage64());
+                                p.setTimesLot(t.getTimeslot());
+                                p.setTestCenter(t.getTestCenter());
+                            }))
+                    .filter(p -> Objects.nonNull(p.getTimesLot()))
+                    .collect(Collectors.toList())
+                    ;
         } else {
             return repository.findByFullnameLikeOrEmailLike("%" + keyword + "%",
                     "%" + keyword + "%")
                     .stream().peek(p -> transactionRepository.findByPatientId(p.getEmail())
-                            .ifPresent(t -> p.setImage(t.getImage64()))).collect(Collectors.toList());
+                            .ifPresent(t -> {
+                                p.setImage(t.getImage64());
+                                p.setTimesLot(t.getTimeslot());
+                                p.setTestCenter(t.getTestCenter());
+                            }))
+                    .filter(p -> Objects.nonNull(p.getTimesLot()))
+                    .collect(Collectors.toList());
         }
 
 
@@ -65,7 +84,7 @@ public class PatientApi {
     @PostMapping("patients/{id}")
     @ResponseBody
     public ResponseEntity upload(@PathVariable("id") Long id,
-                                 @RequestParam(value = "status",required = false) String status
+                                 @RequestParam(value = "status", required = false) String status
             ,
                                  MultipartFile file) {
 
@@ -81,7 +100,7 @@ public class PatientApi {
                             })
                             .orElseGet(() -> {
                                 Transaction transaction = new Transaction();
-                                transaction.setStatus(status);
+                                transaction.setStatus("completed");
                                 transaction.setImage(imgdata);
                                 transaction.setDate(StringUtils.EMPTY);
                                 transaction.setTestCenter(StringUtils.EMPTY);

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,9 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import javax.transaction.Transactional;
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 @Transactional
@@ -58,7 +57,11 @@ public class CustomUserDetailsService implements UserDetailsService {
             user.setEnabled(true);
             user.setPassword(hcp.getPassword());
             user.setId(hcp.getId());
-            return new CustomUserDetails(user);
+            List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+            authorities.add(new SimpleGrantedAuthority("hc"));
+            final var details = new CustomUserDetails(user);
+            details.setAuthorities(authorities);
+            return details;
         }
 
 

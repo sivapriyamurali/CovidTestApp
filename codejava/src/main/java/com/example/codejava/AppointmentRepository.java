@@ -11,7 +11,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long>
 {
 
 
-    @Query("SELECT DISTINCT u.Date FROM Appointment u where u.Type = 'Test' and u.Test_Center = ?1 ")
+    @Query("SELECT DISTINCT u.Date FROM Appointment u where u.Type = 'Test' and u.Test_Center = ?1  and u.Date > CURRENT_DATE ")
     List<String> findDistinctDate(String testCenter);
 
     @Query("SELECT DISTINCT u.Time FROM Appointment u where u.Type = 'Test' and u.Test_Center = ?1 and u.Date = ?2 ")
@@ -29,7 +29,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long>
     @Query("SELECT DISTINCT u.Date FROM Appointment u where u.Type = 'Vaccine'")
     List<String> findDistinctvaccineDate();
 
-    @Query("SELECT DISTINCT u.Date FROM Appointment u where u.Type = 'Vaccine' and u.Test_Center = ?1 ")
+    @Query("SELECT DISTINCT u.Date FROM Appointment u where u.Type = 'Vaccine' and u.Test_Center = ?1  and u.Date > CURRENT_DATE ")
     List<String> findDistinctVacDate(String testCenter);
 
     @Query("SELECT DISTINCT u.Time FROM Appointment u where u.Type = 'Vaccine' and u.Test_Center = ?1 and u.Date = ?2 ")

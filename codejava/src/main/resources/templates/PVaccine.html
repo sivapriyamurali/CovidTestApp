@@ -20,7 +20,7 @@
     <title>Book Covid Vaccine</title>
 </head>
 
-<body>
+<body class="bg-image">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand float-left" href="#">COVIDULE</a>
@@ -50,7 +50,7 @@
 
 
 
-<main class="my-form bg-image">
+<main class="my-form">
     <div class="container ">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -228,19 +228,35 @@
 
 
 
-        const rbs = document.querySelectorAll('input[name="vaccine_type"]');
-        let selectedValue;
-        for (const rb of rbs)
-        {
-            if (rb.checked)
-            {
-                selectedValue = rb.value;
-                break;
-            }
-        }
-        // alert("The required Fields are not filled");
-        // return;
+        // const rbs = document.querySelectorAll('input[name="vaccine_type"]');
+        // let selectedValue;
+        // for (const rb of rbs)
+        // {
+        //     if (rb.checked)
+        //     {
+        //         selectedValue = rb.value;
+        //         break;
+        //     }
+        // }
+        // // alert("The required Fields are not filled");
+        // // return;
 
+
+        if(document.getElementById('Pfizer').checked) {
+
+        }else if(document.getElementById('Moderna').checked) {
+
+        }
+        else if(document.getElementById('Johnson & Johnson').checked)
+        {
+
+        }
+        else
+        {
+            alert("The required Fields are not Selected");
+
+            return;
+        }
 
         if ((tc.length == 0) || (dt.length == 0)  || (tm.length == 0) )
         {

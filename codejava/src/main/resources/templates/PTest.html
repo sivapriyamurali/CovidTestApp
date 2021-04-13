@@ -20,7 +20,7 @@
     <title>Book Covid Test</title>
 </head>
 
-<body>
+<body class="bg-image">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand float-left" href="#">COVIDULE</a>
@@ -50,7 +50,7 @@
 
 
 
-<main class="my-form bg-image">
+<main class="my-form">
     <div class="container">
         <div class="row"></div>
         <div class="row justify-content-center">
@@ -235,20 +235,22 @@
         antigen = document.getElementById("antigentest").value;
 
 
-            const rbs = document.querySelectorAll('input[name="test_type"]');
-            let selectedValue;
-            for (const rb of rbs)
-            {
-                if (rb.checked)
-                {
-                    selectedValue = rb.value;
-                    break;
-                }
-            }
-            // alert("The required Fields are not filled");
-            // return;
 
+        if(document.getElementById('rapidtest').checked) {
 
+        }else if(document.getElementById('rtpcrtest').checked) {
+
+        }
+        else if(document.getElementById('antigentest').checked)
+        {
+
+        }
+        else
+        {
+            alert("The required Fields are not Selected");
+
+            return;
+        }
 
         if ((tc.length == 0) || (dt.length == 0)  || (tm.length == 0) )
         {

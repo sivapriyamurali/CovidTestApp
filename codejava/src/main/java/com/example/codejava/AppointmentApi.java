@@ -81,9 +81,9 @@ public class AppointmentApi {
                             p.getTime());
             transactions.forEach(t -> {
                 try {
-                    System.err.println("发送邮件" + t.getPatientId());
+                    System.err.println("send email to" + t.getPatientId());
                     final var user = t.getUser();
-                    System.err.println("发送成功" + t.getPatientId());
+                    System.err.println("Sent successfully to" + t.getPatientId());
 
                     sendEmail(user.getEmail(), user.getFullname(), t.getDate(),
                             t.getTimeslot());
@@ -107,7 +107,7 @@ public class AppointmentApi {
         String subject = "You Appointment Has Canceled";
         String senderName = "Covidule Team";
         String mailContent = "<p>Dear " + name + ",</p>";
-        mailContent += "<p>You Appointment " + date + "-" + time + "Has Canceled:</p>";
+        mailContent += "<p>You Appointment at " + date + "-" + time + " Has Canceled:</p>";
 
 
         MimeMessage message = mailSender.createMimeMessage();

@@ -1,14 +1,18 @@
 package com.example.codejava;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetails implements UserDetails {
 
 	private User user;
-	
+	private List<SimpleGrantedAuthority> authorities;
+
+
 	public CustomUserDetails(User user)
 	{
 		this.user = user;
@@ -17,7 +21,7 @@ public class CustomUserDetails implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities()
 	{
-		return null;
+		return authorities;
 	}
 
 	@Override
@@ -75,5 +79,9 @@ public class CustomUserDetails implements UserDetails {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public void setAuthorities(List<SimpleGrantedAuthority> authorities) {
+		this.authorities = authorities;
 	}
 }

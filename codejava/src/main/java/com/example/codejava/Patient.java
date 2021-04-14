@@ -35,6 +35,21 @@ public class Patient {
     @Transient
     private String status;
 
+
+    @Transient
+    private String timesLot;
+
+
+    @Transient
+    private String date;
+
+    @Transient
+    private String testCenter;
+
+
+    @Transient
+    private boolean uploaded;
+
     public Long getId() {
         return id;
     }
@@ -94,36 +109,7 @@ public class Patient {
     }
 
 
-    public Integer getAge() throws Exception {
-        if (dob == null) return null;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return getAge(sdf.parse(dob));
-    }
 
-
-    public int getAge(Date birthDay) throws Exception {
-        Calendar cal = Calendar.getInstance();
-        if (cal.before(birthDay)) { //出生日期晚于当前时间，无法计算
-            throw new IllegalArgumentException(
-                    "The birthDay is before Now.It's unbelievable!");
-        }
-        int yearNow = cal.get(Calendar.YEAR);
-        int monthNow = cal.get(Calendar.MONTH);
-        int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
-        cal.setTime(birthDay);
-        int yearBirth = cal.get(Calendar.YEAR);
-        int monthBirth = cal.get(Calendar.MONTH);
-        int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
-        int age = yearNow - yearBirth;
-        if (monthNow <= monthBirth) {
-            if (monthNow == monthBirth) {
-                if (dayOfMonthNow < dayOfMonthBirth) age--;
-            } else {
-                age--;
-            }
-        }
-        return age;
-    }
 
     public String getStatus() {
         return status;
@@ -131,5 +117,39 @@ public class Patient {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+
+    public String getTimesLot() {
+        return timesLot;
+    }
+
+    public void setTimesLot(String timesLot) {
+        this.timesLot = timesLot;
+    }
+
+    public String getTestCenter() {
+        return testCenter;
+    }
+
+    public void setTestCenter(String testCenter) {
+        this.testCenter = testCenter;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+
+    public boolean isUploaded() {
+        return uploaded;
+    }
+
+    public void setUploaded(boolean uploaded) {
+        this.uploaded = uploaded;
     }
 }

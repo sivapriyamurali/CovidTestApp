@@ -1,10 +1,10 @@
 $(() => {
 
     const renderTb = (data) => {
-        const html = data.map(({fullname, age = '', email, id, image}) => (`<tr>
-                            <td>${fullname}</td>
-                            <td>${age}</td>
-                            <td>${email}</td>
+        const html = data.map(({user ,testCenter, email, id, image}) => (`<tr>
+                            <td>${user.fullname}</td>
+                            <td>${testCenter}</td>
+                            <td>${user.email}</td>
                             <td>${image ? ` <img class="img-report" src="data:image/png;base64, ${image}"  />` : ''}</td>
 
                             <td><input type="radio" data-id="${id}" name="ops"/></td>

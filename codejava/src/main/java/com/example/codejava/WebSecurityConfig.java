@@ -20,6 +20,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    private CustomAccessDeniedHandle customAccessDeniedHandle;
+
     @Bean
     public UserDetailsService userDetailsService() {
         return new CustomUserDetailsService();
@@ -44,13 +47,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
                 .csrf()//disable csrf  for http post
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/users", "/hc/**").authenticated()
+                .antMatchers("/users")
+                .authenticated()
+                .antMatchers("/hc/**")
+                .hasAnyAuthority("hc")
                 .anyRequest()
                 .permitAll()
                 .and()
@@ -60,9 +66,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/login-success")
                 .permitAll()
                 .and()
-			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/signout"))
-			.logoutSuccessUrl("/login");
-	}
-	
-	
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/signout"))
+                .logoutSuccessUrl("/login")
+                .and()
+                .exceptionHandling().accessDeniedHandler(customAccessDeniedHandle)
+
+        ;
+    }
+
+
 }

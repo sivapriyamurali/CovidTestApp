@@ -38,7 +38,7 @@
                                     Name</label>
                                 <div class="col-md-6">
                                     <input type="text"
-                                           th:value="${patient.fullname}"
+                                           th:value="${patient.user.fullname}"
                                            id="full_name"
                                            class="form-control" name="full-name"
                                            readonly>
@@ -50,7 +50,7 @@
                                        class="col-md-4 col-form-label text-md-right">E-Mail
                                     Address</label>
                                 <div class="col-md-6">
-                                    <input th:value="${patient.email}"
+                                    <input th:value="${patient.user.email}"
                                            type="text" id="email_address"
                                            class="form-control"
                                            name="email-address"
@@ -59,13 +59,17 @@
                             </div>
 
                             <fieldset class="form-group">
+                                <input id="dateId" hidden
+                                       th:value="${patient.date}" />
+
+                                <input id="uploadId" hidden
+                                       th:value="${patient.uploaded}" />
+
 
                                 <label class="col-md-4 col-form-label text-md-right">Appointment</label>
                                 <div class="form-check offset-md-5">
                                     <input class="form-check-input" type="radio"
                                            name="status" id="scheduled"
-
-                                           th:field="*{patient.status}"
                                            value="scheduled">
                                     <label class="form-check-label"
                                            for="scheduled">
@@ -75,7 +79,6 @@
                                 <div class="form-check offset-md-5">
                                     <input class="form-check-input" type="radio"
                                            name="status" id="pending"
-                                           th:field="*{patient.status}"
                                            value="pendin">
                                     <label class="form-check-label"
                                            for="pending">
@@ -85,7 +88,6 @@
                                 <div class="form-check offset-md-5">
                                     <input class="form-check-input" type="radio"
                                            name="status" id="completed"
-                                           th:field="*{patient.status}"
                                            value="completed">
                                     <label class="form-check-label"
                                            for="completed">

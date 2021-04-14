@@ -192,14 +192,38 @@
             return;
         }
 
+
+
         if(pass != rpass)
         {
             alert("Entered Password doesn't match");
             return;
         }
 
-        $("#myForm").submit();
-        return;
+
+        $.getJSON("http://localhost:8080/UserValidity", {
+            US : em,
+            ajax : 'true'
+        }, function(data) {
+
+
+
+            if(data == true)
+            {
+                alert("The User e-mail ID already exist");
+                return;
+            }
+            else
+            {
+                $("#myForm").submit();
+                return;
+            }
+
+
+        });
+
+
+
 
     }
 

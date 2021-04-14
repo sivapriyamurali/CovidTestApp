@@ -162,6 +162,19 @@ public class AppController {
 
 	}
 
+	@RequestMapping(value = "/UserValidity", method = RequestMethod.GET)
+	public @ResponseBody
+	boolean findalreadyexistinguser(@RequestParam(value = "US", required = true) String emailID)
+	{
+		boolean emailexits = false;
+		if(userRepo.findByEmail(emailID) != null)
+		{
+			emailexits = true;
+		}
+		return emailexits;
+	}
+
+
 	@RequestMapping(value = "/Test/Date", method = RequestMethod.GET)
 	public @ResponseBody
 	List<String> findAllDates(@RequestParam(value = "TC", required = true) String TestCenter)

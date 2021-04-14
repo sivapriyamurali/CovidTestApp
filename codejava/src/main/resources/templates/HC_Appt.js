@@ -292,60 +292,71 @@ function new_event(event) {
 // Event handler for clicking the delete event button
 function delete_event(event) {
 
-    const id = $(".events-container input[type=radio]:checked").attr('data-id')
+    const today = new Date();
+    const today_date = today.getDate();
+    const x = document.querySelector(".active-date").innerText;
 
-
-    $(".events-container").hide(250);
-    $("#dialog").hide(250);
-    $("#deldialog").show(250);
-    let $event = $("#delform .event-card");
-    $event.show(250);
-
-
-    if (!id) {
-        $event.html("Please select delete item!")
+    if (x <= today_date) {
+        $("#deldialog").hide(250)
+        alert("Select a future date");
+        $("#deldialog").hide(250)
     } else {
-        $event.html("Confirm deletion this item ?")
-    }
-    //if there is any appointmnet for the selected date, display it:
 
-    //rmz
-    // Event handler for clicking the Cancel delete button
-    $("#cancel-delbutton").click(function () {
-        $("#count").removeClass("error-input");
+
+        const id = $(".events-container input[type=radio]:checked").attr('data-id')
+
+
+        $(".events-container").hide(250);
         $("#dialog").hide(250);
-        $("#deldialog").hide(250);
-        $(".events-container").show(250);
-    });
+        $("#deldialog").show(250);
+        let $event = $("#delform .event-card");
+        $event.show(250);
 
 
-    //Event handler for del-ok:
-    $("#ok-delbutton").click(function (event) {
-        let $checked = $(".events-container input[type=radio]:checked");
-        const id = $checked.attr('data-id')
-        if (id) {
-            doDelete([`/hc/appointments/${id}`], () => {
-                console.info('delete success')
-
-            })
-            const {events = []} = event_data
-            console.info('event', event)
-            refreshData()
-            const {
-                day,
-                month,
-                year
-            } = events.find(({appointmentId}) => appointmentId == id)
-            const date = new Date(`${year}-${month}-${day}`)
-            console.info('date', date)
-            init_calendar(date);
+        if (!id) {
+            $event.html("Please select delete item!")
+        } else {
+            $event.html("Confirm deletion this item ?")
         }
-        $("#dialog").hide(250);
-        $("#deldialog").hide(250);
-        $(".events-container").show(250);
-    });
-}
+        //if there is any appointmnet for the selected date, display it:
 
+        //rmz
+        // Event handler for clicking the Cancel delete button
+        $("#cancel-delbutton").click(function () {
+            $("#count").removeClass("error-input");
+            $("#dialog").hide(250);
+            $("#deldialog").hide(250);
+            $(".events-container").show(250);
+        });
+
+
+        //Event handler for del-ok:
+        $("#ok-delbutton").click(function (event) {
+            let $checked = $(".events-container input[type=radio]:checked");
+            const id = $checked.attr('data-id')
+            if (id) {
+                doDelete([`/hc/appointments/${id}`], () => {
+                    console.info('delete success')
+
+                })
+                const {events = []} = event_data
+                console.info('event', event)
+                refreshData()
+                const {
+                    day,
+                    month,
+                    year
+                } = events.find(({appointmentId}) => appointmentId == id)
+                const date = new Date(`${year}-${month}-${day}`)
+                console.info('date', date)
+                init_calendar(date);
+            }
+            $("#dialog").hide(250);
+            $("#deldialog").hide(250);
+            $(".events-container").show(250);
+        });
+    }
+}
 
 ///////////////////
 // Display all events of the selected date in card views
@@ -419,6 +430,41 @@ let event_data = {
         }
     ]
 };
+//
+$("#add-button").click(function () {
+    const today = new Date();
+    const today_date = today.getDate();
+    const x = document.querySelector(".active-date").innerText;
+
+    if (x <= today_date){
+        alert("Select a future date");
+    }
+
+});
+
+$("#update-button").click(function () {
+    const today = new Date();
+    const today_date = today.getDate();
+    const x = document.querySelector(".active-date").innerText;
+
+    if (x <= today_date){
+        alert("Select a future date");
+    }
+});
+$("#delete-button").click(function () {
+    const today = new Date();
+    const today_date = today.getDate();
+    const x = document.querySelector(".active-date").innerText;
+
+    if (x <= today_date){
+        $("#deldialog").hide(250)
+        alert("Select a future date");
+        $("#deldialog").hide(250)
+    }
+});
+
+
+
 
 const refreshData = () => {
     const centerId = $('#centerId').val()

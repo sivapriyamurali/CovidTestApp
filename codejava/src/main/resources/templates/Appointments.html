@@ -58,7 +58,7 @@
                     <div class="card">
                         <div class="card-header"><B>Appointment History</B></div>
                         <div class="card-body">
-                            <form th:action="@{/patientindscrn}" th:object="${apptselec}" method="post" >
+                            <form id="myhelloForm" th:action="@{/patientindscrn}" th:object="${apptselec}" method="post" >
                             <div class="card " id="upcomingCard" >
                                 <div class="card-header"><B>Upcoming Appointments</B></div>
                                 <div class="card-body">
@@ -127,8 +127,9 @@
                             </div>
 
                         <div class="col-md-6 offset-md-5">
-                            <button type="Submit" class="btn btn-primary btn-login" id="view-status"> View Status </button>
+                            <button type="button" class="btn btn-primary btn-login" id="view-status" onclick="myval()" > View Status </button>
                         </div>
+
 
                         </form>
                         </div>
@@ -146,30 +147,37 @@
 <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>-->
-<script src="Appointment.js"></script>
-
-<script src="Appointment.js"></script>
+<!--<script src="Appointment.js"></script>-->
 
 <script>
-    // function atLeastOneRadio()
-    // {
-    //     return ($('input[name=apptselect]:checked').length > 0);
-    //
-    //         alert("The required Fields are not filled");
-    //
-    //
-    //
-    //
-    // }
+    function myval()
+    {
+            var apptselect = document.forms[0];
+            var i;
+            noneselected = false;
+            for (i = 0; i < apptselect.length; i++)
+            {
+                if ((apptselect[i].checked)==true)
+                {
+                    noneselected = false;
+                    break;
+                }
+                else
+                {
+                    noneselected = true;
+                }
 
-    // function atLeastOneRadio()
-    // {
-    //     return ($('input[type=radio]:checked').size() > 0);
-    //     $("#myForm").submit();
-    //     return;
-    //
-    // }
+            }
 
+            if(noneselected == true)
+            {
+                alert("The required Fields are not Selected");
+                return
+            }
+
+
+        document.getElementById("myhelloForm").submit();
+    }
 </script>
 </body>
 

@@ -324,6 +324,7 @@ public class AppController {
 	{
 		appt.setPatient_id(userna.getUsername());
 		appt.setType("Test");
+		appt.setStatus("Scheduled");
 
 		apptrepo.save(appt);
 
@@ -336,6 +337,7 @@ public class AppController {
 	{
 		appt.setPatient_id(userna.getUsername());
 		appt.setType("Vaccination");
+		appt.setStatus("Scheduled");
 
 		apptrepo.save(appt);
 

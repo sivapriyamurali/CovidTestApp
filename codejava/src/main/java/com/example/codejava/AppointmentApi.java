@@ -92,6 +92,7 @@ public class AppointmentApi {
                 }
 
             });
+            transactionRepository.deleteByDateAndTimeslot(p.getDate(),p.getTime());
             repository.deleteById(id);
         });
 

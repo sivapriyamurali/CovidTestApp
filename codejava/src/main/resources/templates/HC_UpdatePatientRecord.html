@@ -38,7 +38,7 @@
                                     Name</label>
                                 <div class="col-md-6">
                                     <input type="text"
-                                           th:value="${patient.fullname}"
+                                           th:value="${patient.user.fullname}"
                                            id="full_name"
                                            class="form-control" name="full-name"
                                            readonly>
@@ -50,7 +50,7 @@
                                        class="col-md-4 col-form-label text-md-right">E-Mail
                                     Address</label>
                                 <div class="col-md-6">
-                                    <input th:value="${patient.email}"
+                                    <input th:value="${patient.user.email}"
                                            type="text" id="email_address"
                                            class="form-control"
                                            name="email-address"

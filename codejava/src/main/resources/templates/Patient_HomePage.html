@@ -5,27 +5,13 @@
     <title>Patient Home Page</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
-    <!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
-    <link href="PHomeStyles.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="nicepage.css" media="screen">
+    <link rel="stylesheet" href="Home.css" media="screen">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
-<body style="background-color:#000000">
+<body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand float-left" href="#">COVIDULE</a>
@@ -48,6 +34,52 @@
         </div>
     </div>
 </nav>
+<div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+</div>
+
+
+
+<section class="u-align-left u-black u-clearfix u-section-1" id="carousel_b6d5">
+    <div class="container-fluid">
+        <div class="u-clearfix u-sheet u-sheet-1" data-image-width="1600" data-image-height="970">
+            <img src="Capture.jpg" alt="" class="u-image u-image-default u-image-1" data-image-width="700"
+                 data-image-height="900">
+            <div class="u-black u-container-style u-expanded-width-sm u-expanded-width-xs u-group u-group-1">
+                <h2>Hello, Welcome back</h2>
+                <p class="lead">Are you or is someone close to you sick or has symptoms? Do you work outside the home? You
+                    should
+                    get tested for coronavirus.</p>
+                <p class="lead">Protect yourself and your loved ones from Covid-19. Get Vaccinated.</p>
+                <hr class="my-4">
+                <div class="d-inline-flex align-items-center">
+                    <div class="col-sm-6">
+                                <a th:href="@{/Test}">
+                                    <img src="image2.png" alt="Test Appointment" >
+                                    <h5 class="text-center text-white" style="height:48px;width:150px;">Testing Appointment</h5>
+                                </a>
+                    </div>
+                    <div class="col-md-6 ml-4">
+                                <a th:href="@{/Vaccine}">
+                                    <img src="image1.png" alt="Vaccine Appointment">
+                                    <h5 class="text-center text-white">Vaccination Appointment</h5>
+                                </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+</div>
+
+    <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-e6e3">
+        <div class="u-clearfix u-sheet u-sheet-1">
+            <p class="u-small-text u-text u-text-variant u-text-1"> Real time in-app test result delivery
+                - Access to testing, vaccine information and appointments</p>
+        </div>
+
+    </footer>
 
 
 <div class="jumbotron" style="background-color:#000000">
@@ -77,4 +109,5 @@
 
 </div>
 </body>
+
 </html>

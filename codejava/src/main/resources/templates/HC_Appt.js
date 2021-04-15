@@ -298,7 +298,7 @@ function delete_event(event) {
 
     if (x <= today_date) {
         $("#deldialog").hide(250)
-        alert("Select a future date");
+        alert("Please select a future date");
         $("#deldialog").hide(250)
     } else {
 
@@ -436,8 +436,8 @@ $("#add-button").click(function () {
     const today_date = today.getDate();
     const x = document.querySelector(".active-date").innerText;
 
-    if (x <= today_date){
-        alert("Select a future date");
+    if (x < today_date){
+        alert("Please select a future date");
     }
 
 });
@@ -448,7 +448,7 @@ $("#update-button").click(function () {
     const x = document.querySelector(".active-date").innerText;
 
     if (x <= today_date){
-        alert("Select a future date");
+        alert("Please select a future date");
     }
 });
 $("#delete-button").click(function () {
@@ -458,7 +458,7 @@ $("#delete-button").click(function () {
 
     if (x <= today_date){
         $("#deldialog").hide(250)
-        alert("Select a future date");
+        alert("Please select a future date");
         $("#deldialog").hide(250)
     }
 });

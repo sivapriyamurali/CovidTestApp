@@ -10,18 +10,13 @@ body{
 }
 
 
-.bg-image {
-    background-image: url('/static/Image1.jpeg');
-    background-position: center;
-    background-size: auto ;
 
-}
 
 .card-wrapper{
     min-width: 900px;
     max-width: 950px;
 }
-transparent card
+
 
 
 
@@ -56,11 +51,12 @@ body {
     height: 100%;
     width: 100%;
     margin: 0;
-    background: #005C97;    
+    background:black;
+/*
     background: -webkit-linear-gradient(left, #363795, #005C97);
     background: -moz-linear-gradient(left, #363795, #005C97);
     background: -o-linear-gradient(left, #363795, #005C97);
-    background: linear-gradient(to right, #363795, #005C97); 
+    background: linear-gradient(to right, #363795, #005C97); */
     font-family: Helvetica;
 } 
 :root {
@@ -372,7 +368,7 @@ body {
         background: #52A0FD;
         background: -moz-linear-gradient(left,  #52A0FD 0%, #00C9FB 80%, #00C9FB 100%);
         background: -webkit-linear-gradient(left,  #52A0FD 0%, #00C9FB 80%, #00C9FB 100%);
-        background: linear-gradient(to right,  #52A0FD 0%, #00C9FB 80%, #00C9FB 100%);  
+        background: linear-gradient(to right,  #52A0FD 0%, #00C9FB 80%, #00C9FB 100%);
     }
     .dialog {
         width:370px;

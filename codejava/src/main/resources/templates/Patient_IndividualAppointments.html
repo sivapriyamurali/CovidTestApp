@@ -168,17 +168,25 @@
 
 <script th:inline="javascript">
 
-    function script() {
+    function script()
+    {
         var date = [[${listappdetail.Date}]];
+      //  alert("Date" + date)
         var day = new Date().getDate();
         var month = new Date().getMonth();
         var year = new Date().getFullYear();
-        var datestring = year + "-" + ("0" + (month + 1)).slice(-2) + "-" + ("0" + day).slice(-2);
+        // var datestring = year + "-" + ("0"+(month+1)).slice(-2) + "-" + ("0" + day).slice(-2);
+        var datestring = year + "-" + (month+1) + "-" + day;
+
+        var d1 = Date.parse(date);
+        var d2 = Date.parse(datestring);
 
         var cn = document.getElementById("cancel");
 
 
-        if (date <= datestring) {
+        if (d1 <= d2)
+        {
+
             cn.remove();
 
         }

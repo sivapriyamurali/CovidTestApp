@@ -66,6 +66,22 @@ public class AppController {
 
 	}
 
+	@GetMapping("/")
+	public String landingPage()
+	{
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication == null || authentication instanceof AnonymousAuthenticationToken)
+		{
+			return "LandingPage.html";
+		}
+
+		else
+		{
+			return "Patient_HomePage";
+		}
+
+	}
+
 
 	@GetMapping("/Appointments")
 	public String Appointments(Model model, @AuthenticationPrincipal CustomUserDetails userna)

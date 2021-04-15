@@ -3,6 +3,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <link href="HCStyles.css" rel="stylesheet">
     <meta charset="utf-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,10 +13,11 @@
           crossorigin="anonymous">
     <link th:href="@{/common.css}"
           rel="stylesheet">
+
     <title>Home Page</title>
 </head>
 
-<body class="bg-image">
+<body >
 <div th:insert="~{commonNav :: commonNav()}"></div>
 <main class="my-form bg-image">
     <div class="container-fluid">

@@ -380,7 +380,7 @@ function show_events(events, month, day) {
 
             event_time = $(`<div class='event-time hc-row'> <div class="hc-tag">${event.type}</div> ${event.time}:</div>`);
 
-            var event_count = $("<div class='event-count'>" + events[i]["invited_count"] + ` Appointments <input data-day=${events[i]?.day} data-id=${events[i]?.appointmentId} type = 'radio' ></div>`);
+            var event_count = $("<div class='event-count'>" + events[i]["invited_count"] + ` Appointments <input data-day=${events[i]?.day} name='appo'  data-id=${events[i]?.appointmentId} type = 'radio' ></div>`);
 
             if (events[i]["cancelled"] === true) {
                 $(event_card).css({

@@ -11,7 +11,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long>
 
     List<Transaction> findByPatientIdLikeOrUserFullnameLike(String key, String key1);
 
-    List<Transaction> findByDateAndTimeslot(String date, String time);
+    List<Transaction> findByTestCenterAndDateAndTimeslot(String testCenter, String date, String time);
 
-    void deleteByDateAndTimeslot(String date, String time);
+    int deleteByTestCenterAndDateAndTimeslot(String testCenter, String date, String time);
 }

@@ -77,7 +77,7 @@ public class AppointmentApi {
     public ResponseEntity<String> delete(@PathVariable("id") Long id) {
         repository.findById(id).ifPresent(p -> {
             final List<Transaction> transactions =
-                    transactionRepository.findByDateAndTimeslot(p.getDate(),
+                    transactionRepository.findByTestCenterAndDateAndTimeslot(p.getTestCenter(),p.getDate(),
                             p.getTime());
             transactions.forEach(t -> {
                 try {
@@ -92,7 +92,8 @@ public class AppointmentApi {
                 }
 
             });
-            transactionRepository.deleteByDateAndTimeslot(p.getDate(),p.getTime());
+            int num =
+                    transactionRepository.deleteByTestCenterAndDateAndTimeslot(p.getTestCenter(),p.getDate(),p.getTime());
             repository.deleteById(id);
         });
 

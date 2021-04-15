@@ -3,6 +3,7 @@ package com.example.codejava;
 
 import javax.persistence.*;
 import java.sql.Blob;
+import java.util.Base64;
 
 @Entity
 @Table(name = "transaction")
@@ -36,6 +37,10 @@ public class TransactionApp
 
     @Column(name = "image")
     private String Report;
+
+
+    @Column(name ="image",insertable = false,updatable = false)
+    private byte[] reportBytes;
 
 
     public Long getId() {
@@ -112,4 +117,17 @@ public class TransactionApp
         Report = report;
     }
 
+
+    public byte[] getReportBytes() {
+        return reportBytes;
+    }
+
+    public void setReportBytes(byte[] reportBytes) {
+        this.reportBytes = reportBytes;
+    }
+
+    public String getReport64(){
+        if(null == reportBytes) return null;
+        return Base64.getEncoder().encodeToString(reportBytes);
+    }
 }

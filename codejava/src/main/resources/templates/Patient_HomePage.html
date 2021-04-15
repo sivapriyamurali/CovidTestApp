@@ -1,6 +1,6 @@
 <!--Home Page -->
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Patient Home Page</title>
     <meta charset="utf-8">
@@ -36,6 +36,7 @@
 </nav>
 <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
 </div>
+
 
 
 <section class="u-align-left u-black u-clearfix u-section-1" id="carousel_b6d5">
@@ -80,6 +81,33 @@
 
     </footer>
 
+
+<div class="jumbotron" style="background-color:#000000">
+
+
+    <h1 class="display-4">Hello <span sec:authentication="principal.fullName">Fullname</span>,</h1>
+    <p class="lead">Are you or is someone close to you sick or has symptoms? Do you work outside the home? You should
+        get tested for coronavirus.</p>
+    <p class="lead">Protect yourself and your loved ones from Covid-19. Get Vaccinated.</p>
+    <hr class="my-4">
+    <div class="d-inline-flex align-items-center">
+        <div class="col-md-6 mr-4 offset-md-1">
+            <a th:href="@{/Test}">
+                        <img src="image2.png" alt="Test Appointment" class="img1">
+                    <h4 class="title text-center">Testing Appointment</h4>
+            </a>
+        </div>
+        <div class="col-md-6 ml-4">
+            <a th:href="@{/Vaccine}">
+                        <img src="image1.png" alt="Vaccine Appointment" class="img2">
+                    <h4 class="title text-center">Vaccination Appointment</h4>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+</div>
 </body>
 
 </html>

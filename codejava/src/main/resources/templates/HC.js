@@ -12,13 +12,23 @@ $(() => {
     initTb();
 
     $('.ops').on('click', '#confirm_id', () => {
-        const $center = $('#tb_id input[type=radio]:checked')
-        if ($center.length !== 0) {
-            const id = $center.attr('data-id')
-            window.location.href = `/hc/appointment?id=${id}`
+
+        const isSelected = $('input[name=ops]:checked').val();
+        if (isSelected == null){
+        alert("Please select a Test Center")
+        }
+        else {
+
+
+            const $center = $('#tb_id input[type=radio]:checked')
+            if ($center.length !== 0) {
+                const id = $center.attr('data-id')
+                window.location.href = `/hc/appointment?id=${id}`
+            }
         }
     })
 })
+
 
 
 

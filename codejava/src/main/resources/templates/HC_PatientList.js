@@ -20,12 +20,17 @@ $(() => {
     initTb();
 
     $(document).on('click', '#confirm_id', () => {
+
         console.info('confirm')
         const $center = $('#tb_id input[type=radio]:checked')
         if ($center.length !== 0) {
             const id = $center.attr('data-id');
             window.location.href = `/hc/patient/update/${id}`
         }
+        else{
+            alert("Please select a Patient")
+        }
+
     })
 
     $(document).on('click', '#searchBtn', () => {

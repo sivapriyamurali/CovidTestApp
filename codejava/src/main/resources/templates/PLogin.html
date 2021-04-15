@@ -26,103 +26,85 @@
     <link href="LoginStyles.css" rel="stylesheet">
 </head>
 <body>
-<div id='root'></div>
-<div class="container-fluid">
-    <div class="row no-gutter">
-        <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
-        <div class="col-md-8 col-lg-6">
-            <div class="login d-flex align-items-center py-5">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-9 col-lg-8 mx-auto">
-                            <h3 class="login-heading mb-4">Welcome to COVIDULE!</h3>
-                            <!--                            <form th:action="@{/login}" method="post" class="needs-validation">-->
-                            <!--                                <form  method="post" >-->
-                            <form name="f" th:action="@{/login}" method="post">
-                                <div class="form-label-group">
+<div id="root" class="d-flex align-items-center">
+    <div class="container-fluid ">
+        <div class="row no-gutter">
+            <div class="d-none d-md-flex col-md-4 col-lg-3 bg-image"></div>
+            <div class="col-md-8 col-lg-6">
+                <div class="login d-flex align-items-center py-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-lg-8 mx-auto">
+                                <h3 class="login-heading mb-4 text-center">Welcome to COVIDULE!</h3>
+                                <!--                            <form th:action="@{/login}" method="post" class="needs-validation">-->
+                                <!--                                <form  method="post" >-->
+                                <form name="f" th:action="@{/login}" method="post">
+                                    <div class="form-label-group">
 
-                                    <input type="email" id="username"
-                                           name="email" class="form-control"
-                                           placeholder="Username" required
-                                           autofocus>
-                                    <!--                                    <input type="email" id="username" class="form-control"-->
-                                    <!--                                           placeholder="Email address" aria-describedby="emailHelp" required autofocus>-->
-                                    <label for="username">Email address</label>
-                                </div>
+                                        <input type="email" id="username"
+                                               name="email" class="form-control"
+                                               placeholder="Username" required
+                                               autofocus>
+                                        <!--                                    <input type="email" id="username" class="form-control"-->
+                                        <!--                                           placeholder="Email address" aria-describedby="emailHelp" required autofocus>-->
+                                        <label for="username">Email address</label>
+                                    </div>
 
-                                <div class="form-label-group ">
+                                    <div class="form-label-group ">
 
-                                    <!--                                    <input type="password" id="password" class="form-control"-->
-                                    <!--                                           placeholder="Password" required>-->
-                                    <input type="password" id="password"
-                                           name="password" class="form-control"
-                                           placeholder="Password" required>
-                                    <label for="password">Password</label>
+                                        <!--                                    <input type="password" id="password" class="form-control"-->
+                                        <!--                                           placeholder="Password" required>-->
+                                        <input type="password" id="password"
+                                               name="password" class="form-control"
+                                               placeholder="Password" required>
+                                        <label for="password">Password</label>
+                                    </div>
+                                    <div th:if="${param.error}"
+                                         class="alert alert-danger">
+                                        Invalid username and password.
+                                    </div>
 
+                                    <div class="form-group row ">
+                                        <label class="col-md-4 col-form-label text-md-left"> User Type </label>
+                                        <div class="col-md-3 col-form-label">
+                                            <input type="radio"
+                                                   id="usertypePatient"
+                                                   value="Patient"
+                                                   class="custom-control-input "
+                                                   name="usertype" checked> Patient
+                                        </div>
+                                        <div class="col-md-3 col-form-label">
+                                            <input type="radio"
+                                                   id="usertypeProvider"
+                                                   value="Provider"
+                                                   class="custom-control-input"
+                                                   name="usertype"> Provider
+                                        </div>
+                                    </div>
 
-                                </div>
-                                <div th:if="${param.error}"
-                                     class="alert alert-danger">
-                                    Invalid username and password.
-                                </div>
-
-                                <div class="form-group row ">
-                                    <label class="col-md-4 col-form-label text-md-left"> User Type </label>
-                                                <div class="col-md-3 col-form-label">
-                                                    <input type="radio"
-                                                        id="usertypePatient"
-                                                       value="Patient"
-                                                       class="custom-control-input "
-                                                       name="usertype" checked> Patient
-                                                </div>
-
-
-                                                <div class="col-md-3 col-form-label">
-                                                    <input type="radio"
-                                                           id="usertypeProvider"
-                                                           value="Provider"
-                                                           class="custom-control-input"
-                                                           name="usertype"> Provider
-                                                </div>
-                                </div>
-
-<!--                                <div class="form-label-group row ">-->
-<!--                                    <div class="col-md-9 col-lg-8 ">-->
-<!--                                        <input type="radio" id="usertypePatient" class="custom-control-input " name="usertype"> Patient </div>-->
-<!--                                    <div class="col-md-9 col-lg-8">-->
-<!--                                        <input type="radio" id="usertypeProvider" class="custom-control-input" name="usertype"> Provider </div>-->
-
-<!--                                </div>-->
-
-<!--                                <div class="custom-control custom-checkbox mb-3">-->
-<!--                                    <input type="checkbox" 
-class="custom-control-input" id="customCheck1">-->
-<!--                                    <label class="custom-control-label" for="customCheck1">Remember password</label>-->
-<!--                                </div>-->
-
-                            <div class="form-group row">
-                                <button
-                                        class="btn btn-primary btn-lg btn-block btn-login text-uppercase font-weight-bold mb-2"
-                                        type="submit">Sign in
-                                </button>
+                                    <div class="row text-center">
+                                        <div  class="col-md-6 offset-3">
+                                            <button
+                                                    class="btn btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                                                    type="submit">Sign in
+                                            </button>
+                                        </div>
+                                </form>
+                                <!--<form th:action="@{/register}"
+                                      method="get">
+                                    <div class="col-md-6">
+                                        <button type="submit"
+                                                class="btn btn-primary  btn-block btn-login text-uppercase font-weight-bold mb-2">
+                                            Register
+                                        </button>
+                                    </div>
+                                </form>-->
 
                             </div>
-                            </form>
-                            <form th:action="@{/register}"
-                                  method="get"
-                                  style="max-width: 600px; margin: 0 auto;">
-                                <div class="row">
-                                    <button type="submit"
-                                            class="btn btn-primary btn-lg btn-block btn-login text-uppercase font-weight-bold mb-2">
-                                        Register
-                                    </button>
-                                </div>
-                            </form>
-
-
-                            <div class="text-justify">
+                            <div class="text-center">
                                 <a class="small" th:href="@{/forgot_password}">Forgot
                                     password?</a>
+                                <a class="small"  th:href="@{/register}">Register?</a>
                             </div>
 
                         </div>
@@ -132,7 +114,7 @@ class="custom-control-input" id="customCheck1">-->
         </div>
     </div>
 </div>
-
+</div>
 <!-- Reshma time 2:00pm -->
 </body>
 <script>

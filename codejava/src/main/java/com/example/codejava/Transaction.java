@@ -35,6 +35,12 @@ public class Transaction {
     @Lob
     private byte[] image;
 
+
+    @ManyToOne()
+    @JoinColumn(name = "Patient_id",referencedColumnName="email",updatable =
+            false,insertable = false)
+    private PatientUser user;
+
     public Long getId() {
         return id;
     }
@@ -112,5 +118,18 @@ public class Transaction {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+
+    public PatientUser getUser() {
+        return user;
+    }
+
+    public void setUser(PatientUser user) {
+        this.user = user;
+    }
+
+    public boolean isUploaded(){
+        return image != null;
     }
 }

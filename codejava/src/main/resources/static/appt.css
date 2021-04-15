@@ -11,27 +11,17 @@ body{
 
 
 .bg-image {
-    background-image: url('/static/img/bk.jpeg');
+    background-image: url('/static/Image1.jpeg');
     background-position: center;
     background-size: auto ;
 
 }
 
-
-transparent card
-.card {
-    background-color: rgba(15, 8, 8, 0.55);
-    padding-top: 10px;
-    padding-bottom: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    border-radius: 15px;
-    border-color: #d2d2d2;
-    border-width: 3px;
-    color: white;
-    box-shadow: 0 1px 0 #cfcfcf;
-    background: transparent !important;
+.card-wrapper{
+    min-width: 900px;
+    max-width: 950px;
 }
+transparent card
 
 
 
@@ -77,29 +67,10 @@ body {
     --input-padding-x: 1.5rem;
     --input-padding-y: 0.75rem;
 }
-body{
-    background:black;
-}
 
-
-.bg-image {
-    background-image: url('/img/bk.jpeg');
-    background-position: center;
-    background-size: auto ;
-
-}
-.my-form {
-    padding-top: 5.5rem;
-    padding-bottom: 1.5rem;
-}
-
-.my-form .row {
-    margin-left: 0;
-    margin-right: 0;
-}
 .content {
     overflow: none;
-    max-width: 790px;
+    width: 840px;
     padding: 0px 0;
     height: 500px;
     position: relative;
@@ -255,7 +226,7 @@ body{
 #delete-button {
     display: block;
     position: absolute;
-    right:20px;
+    right:10px;
     bottom: 20px;
     margin-left: 20px;
     border-radius: 25px;
@@ -263,7 +234,7 @@ body{
 #add-button {
     display: block;
     position: absolute;
-    left:20px;
+    left:10px;
     bottom: 20px;
     border-radius: 25px;
 }
@@ -281,7 +252,7 @@ body{
 } 
 .day { 
     height: 26px;
-    width: 26px;
+    width: 35px;
     padding: 0 10px;
     line-height: 26px; 
     border: 2px solid transparent;
@@ -292,7 +263,7 @@ body{
 .month {
     cursor: default;
     height: 26px;
-    width: 26px;
+    width: 35px;
     padding: 0 2px;
     padding-top:10px;
     line-height: 26px; 
@@ -317,7 +288,7 @@ body{
     cursor: default;
     color:#2b2b2b; 
     height:26px;
-    width: 26px;
+    width: 54px;
     font-size: 15px;
     padding: 10px;
     line-height:26px; 
@@ -350,7 +321,7 @@ body{
     position:absolute;
     width:415px;
     height: 500px;
-    left:387px;
+    left:445px;
     border-top-right-radius:3px;
     border-bottom-right-radius: 3px;
     display:none;
@@ -471,4 +442,42 @@ body{
         right: 10px;
         padding: 0.5rem 1.5rem;
     }
-} 
+}
+
+
+.hc-row{
+    display: flex;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+
+.hc-tag{
+    margin: 0 10px;
+    border: 1px solid #01c1b2;
+    background-color: rgba(1,193,178,.25);
+    color: #01c1b2;
+    padding: 0 5px;
+    font-size: 90%;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 3px;
+}
+
+#delete-button{
+    background: red;
+}
+
+.btn-groups{
+    display: flex;
+}
+
+#update-button{
+    position: absolute;
+    bottom: 20px;
+    left: 144px;
+    border-radius: 25px;
+}
+
+#update-button:hover{
+    transform: scale(1.03);
+}

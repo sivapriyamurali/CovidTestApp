@@ -32,7 +32,7 @@
     <title>PortaL</title>
 </head>
 
-<body class="bg-image">
+<body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand float-left" href="#">COVIDULE</a>
@@ -60,14 +60,16 @@
         </div>
     </div>
 </nav>
-<main class="my-form bg-image">
+<main class="my-form">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header"><B>Patient Profile</B></div>
                     <div class="card-body">
-                        <form name="my-form" th:action="@{/update_register}" th:object="${user}" method="post" >
+                        <form id="myPhomeForm" th:action="@{/update_register}" th:object="${user}" method="post" >
+
+
 <!--                            onsubmit="return validform()" action="success.php" method=""-->
 <!--                            th:field="*{Name}"-->
                             <div class="form-group row">
@@ -102,12 +104,15 @@
                                 <div class="col-4"></div>
                                 <div class="col-2">
 
-                                    <button type="button" class="btn btn-primary btn-login" onclick="myFunction()" > Edit </button>
+                                    <button type="button" class="btn btn-primary btn-login" onclick="myFunction1()" > Edit </button>
 
                                 </div>
 
                                 <div class="col-2 ">
-                                    <button type="Submit" class="btn btn-primary btn-login" > Save </button>
+                                    <button type="button" id="save" value="save" onclick="myValidationFunction1()" class="btn btn-primary btn-login"  > Save </button>
+<!--                                    <button type="button" id="register" value="Register" onclick="myValidationFunction()" class="btn btn-primary btn-login" >-->
+<!--                                        Save-->
+<!--                                    </button>-->
                                 </div>
                             </div>
                         </form>
@@ -121,13 +126,60 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>-->
 <script>
-function myFunction()
+function myFunction1()
 {
     document.getElementById("full_name").readOnly = false;
-    document.getElementById("email_address").readOnly = false;
+    document.getElementById("email_address").readOnly = true;
     document.getElementById("phone_number").readOnly = false;
     document.getElementById("present_address").readOnly = false;
 }
+</script>
+
+
+<script>
+    function myValidationFunction1()
+    {
+        nam = document.getElementById("full_name").value;
+        em = document.getElementById("email_address").value;
+        ph = document.getElementById("phone_number").value;
+        ad = document.getElementById("present_address").value;
+
+        var numbers = /^[0-9]+$/;
+
+        var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+        if ((nam.length == 0) || (em.length == 0)  || (ph.length == 0) || (ad.length == 0))
+        {
+            alert("The required Fields are not filled");
+
+            return;
+        }
+
+        if(!(em.match(mailformat)))
+        {
+            alert("You have entered an invalid email address!");
+            return;
+        }
+
+
+
+        if (ph.length !== 10)
+        {
+            alert("Must be 10 Digits");
+            return;
+        }
+
+
+        if(!(ph.match(numbers)))
+        {
+            alert('Please input numeric characters only');
+            return;
+        }
+
+        document.getElementById("myPhomeForm").submit();
+
+    }
+
 </script>
 
 

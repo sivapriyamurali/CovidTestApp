@@ -23,7 +23,7 @@
     <title>Appointment History</title>
 </head>
 
-<body class="bg-image" onload="script();">
+<body onload="script();">
 
 <!--<body onload="Jscript(' + ${listappdetail.getDate()} + ');">-->
 
@@ -55,7 +55,7 @@
         </ul>
     </div>
 </nav>
-<main class="my-form bg-image">
+<main class="my-form ">
     <div class="container-fluid">
         <div class="row"></div>
         <div class="row justify-content-center">
@@ -86,8 +86,9 @@
                                 <td th:text="${listappdetail.Timeslot}">Time Slot</td>
                                 <td th:text="${listappdetail.Test_Type}">Test Type</td>
 
+
                                 <div th:if="${listappdetail.Type} == Vaccination">
-                                    <td>N/A</td>
+                                    <td th:text="${listappdetail.Status}">Status</td>
                                     <td>N/A</td>
 
                                 </div>
@@ -140,13 +141,11 @@
         var year = new Date().getFullYear();
         var datestring = year + "-" + ("0"+(month+1)).slice(-2) + "-" + ("0" + day).slice(-2);
 
-       // var rs = document.getElementById("reschedule");
         var cn = document.getElementById("cancel");
 
 
         if (date <= datestring)
         {
-          //  rs.remove();
             cn.remove();
 
         }

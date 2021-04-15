@@ -4,6 +4,8 @@ package com.example.codejava;
 import org.hibernate.query.criteria.internal.expression.function.CurrentTimestampFunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import net.bytebuddy.utility.RandomString;
 import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -42,6 +45,9 @@ public class AppController {
 
     @Autowired
     private CustomUserDetailsService service;
+
+	@Autowired
+	private JavaMailSender mailSender;
 
 
 	@GetMapping("/login")
@@ -161,6 +167,19 @@ public class AppController {
 		}
 
 	}
+
+	@RequestMapping(value = "/UserValidity", method = RequestMethod.GET)
+	public @ResponseBody
+	boolean findalreadyexistinguser(@RequestParam(value = "US", required = true) String emailID)
+	{
+		boolean emailexits = false;
+		if(userRepo.findByEmail(emailID) != null)
+		{
+			emailexits = true;
+		}
+		return emailexits;
+	}
+
 
 	@RequestMapping(value = "/Test/Date", method = RequestMethod.GET)
 	public @ResponseBody
@@ -307,26 +326,82 @@ public class AppController {
 		return "users";
 	}
 	@PostMapping("/Test_confirm")
-	public String testAppointment(TransactionApp appt , @AuthenticationPrincipal CustomUserDetails userna)
-	{
+	public String testAppointment(TransactionApp appt , @AuthenticationPrincipal CustomUserDetails userna) throws UnsupportedEncodingException, MessagingException {
 		appt.setPatient_id(userna.getUsername());
 		appt.setType("Test");
+		appt.setStatus("Scheduled");
 
 		apptrepo.save(appt);
+
+		sendTestSuccessEmail(appt,userna);
 
 		return "TestApptSuccess.html";
 	}
 
 
+
+	private void sendTestSuccessEmail(TransactionApp appt ,@AuthenticationPrincipal CustomUserDetails userna) throws UnsupportedEncodingException, MessagingException {
+		String toAddress = userna.getUsername();
+		String testcenter = appt.getTest_center();
+		String testDate = appt.getDate();
+		String testTime = appt.getTimeslot();
+		String fromAddress = "covidule@gmail.com";
+		String subject = "Covid Test Confirmation";
+		String senderName = "Covidule Team";
+		String mailContent = "<p>Dear " + userna.getFullName() + ",</p>";
+		mailContent += "<p>This email confirms you have successfully scheduled for the Covid Test.</p>";
+		mailContent  += "<B><p>COVID TEST DETAILS:</p></B>";
+		mailContent += "<p>  Location: " + testcenter +"</p>";
+		mailContent += "<p>  Test Date: " + testDate +"</p>";
+		mailContent += "<p>  Time: " + testTime +"</p>";
+		mailContent += "<p>Please check your appointment portal for further information.</p>";
+		mailContent += "<p>Thank you<br>The Covidule Team. </p>";
+
+		MimeMessage message = mailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message);
+		helper.setFrom(fromAddress, senderName);
+		helper.setTo(toAddress);
+		helper.setSubject(subject);
+		helper.setText(mailContent, true);
+		mailSender.send(message);
+	}
+
+
 	@PostMapping("/Vac_confirm")
-	public String VacAppointment(TransactionApp appt , @AuthenticationPrincipal CustomUserDetails userna)
-	{
+	public String VacAppointment(TransactionApp appt , @AuthenticationPrincipal CustomUserDetails userna) throws UnsupportedEncodingException, MessagingException {
 		appt.setPatient_id(userna.getUsername());
 		appt.setType("Vaccination");
+		appt.setStatus("Scheduled");
 
 		apptrepo.save(appt);
-
+		sendVaccineSuccessEmail(appt,userna);
 		return "VaccApptSuccess.html";
+	}
+
+	private void sendVaccineSuccessEmail(TransactionApp appt, @AuthenticationPrincipal CustomUserDetails userna) throws MessagingException, UnsupportedEncodingException {
+		String toAddress = userna.getUsername();
+		String testcenter = appt.getTest_center();
+		String testDate = appt.getDate();
+		String testTime = appt.getTimeslot();
+		String fromAddress = "covidule@gmail.com";
+		String subject = "Covid Vaccine Confirmation";
+		String senderName = "Covidule Team";
+		String mailContent = "<p>Dear " + userna.getFullName() + ",</p>";
+		mailContent += "<p>This email confirms you have successfully scheduled for the Covid Vaccination.</p>";
+		mailContent  += "<B><p>COVID VACCINATION DETAILS:</p></B>";
+		mailContent += "<p> Location: " + testcenter +"</p>";
+		mailContent += "<p> Vaccination Date: " + testDate +"</p>";
+		mailContent += "<p> Time: " + testTime +"</p>";
+		mailContent += "<p>Please check your appointment portal for further information.</p>";
+		mailContent += "<p>Thank you<br>The Covidule Team. </p>";
+
+		MimeMessage message = mailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message);
+		helper.setFrom(fromAddress, senderName);
+		helper.setTo(toAddress);
+		helper.setSubject(subject);
+		helper.setText(mailContent, true);
+		mailSender.send(message);
 	}
 
 	@PostMapping("/patientindscrn")

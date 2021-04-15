@@ -323,7 +323,8 @@ public class AppController {
 	}
 
     @GetMapping("login-success")
-    public String loginSuccess(Model model) {
+    public String loginSuccess(Model model)
+	{
         final CustomUserDetails details =  (com.example.codejava.CustomUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final var user = details.getUser();
         model.addAttribute("AUser", user);

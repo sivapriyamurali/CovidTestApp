@@ -11,7 +11,8 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
-<body>
+<body style="background-color:#000000">
+<!--<div class="jumbotron" style="background-color:#000000">-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand float-left" href="#">COVIDULE</a>
@@ -45,7 +46,7 @@
             <img src="Capture.jpg" alt="" class="u-image u-image-default u-image-1" data-image-width="700"
                  data-image-height="900">
             <div class="u-black u-container-style u-expanded-width-sm u-expanded-width-xs u-group u-group-1">
-                <h2>Hello, Welcome back</h2>
+                <h2>Hello <span sec:authentication="principal.fullName">Fullname</span>,</h2>
                 <p class="lead">Are you or is someone close to you sick or has symptoms? Do you work outside the home? You
                     should
                     get tested for coronavirus.</p>
@@ -73,37 +74,14 @@
 </section>
 </div>
 
-    <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-e6e3">
-        <div class="u-clearfix u-sheet u-sheet-1">
-            <p class="u-small-text u-text u-text-variant u-text-1"> Real time in-app test result delivery
-                - Access to testing, vaccine information and appointments</p>
-        </div>
+<!--    <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-e6e3">-->
+<!--        <div class="u-clearfix u-sheet u-sheet-1">-->
+<!--            <p class="u-small-text u-text u-text-variant u-text-1"> Real time in-app test result delivery-->
+<!--                - Access to testing, vaccine information and appointments</p>-->
+<!--        </div>-->
 
-    </footer>
+<!--    </footer>-->
 
-
-<div class="jumbotron" style="background-color:#000000">
-
-
-    <h1 class="display-4">Hello <span sec:authentication="principal.fullName">Fullname</span>,</h1>
-    <p class="lead">Are you or is someone close to you sick or has symptoms? Do you work outside the home? You should
-        get tested for coronavirus.</p>
-    <p class="lead">Protect yourself and your loved ones from Covid-19. Get Vaccinated.</p>
-    <hr class="my-4">
-    <div class="d-inline-flex align-items-center">
-        <div class="col-md-6 mr-4 offset-md-1">
-            <a th:href="@{/Test}">
-                        <img src="image2.png" alt="Test Appointment" class="img1">
-                    <h4 class="title text-center">Testing Appointment</h4>
-            </a>
-        </div>
-        <div class="col-md-6 ml-4">
-            <a th:href="@{/Vaccine}">
-                        <img src="image1.png" alt="Vaccine Appointment" class="img2">
-                    <h4 class="title text-center">Vaccination Appointment</h4>
-            </a>
-        </div>
-    </div>
 
 </div>
 

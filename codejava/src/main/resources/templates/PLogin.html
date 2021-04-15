@@ -61,6 +61,7 @@
                                     </div>
                                     <div th:if="${param.error}"
                                          class="alert alert-danger">
+                                        <input type="hidden"/>
                                         Invalid username and password.
                                     </div>
 
@@ -89,6 +90,7 @@
                                                     type="submit">Sign in
                                             </button>
                                         </div>
+                                    </div>
                                 </form>
                                 <!--<form th:action="@{/register}"
                                       method="get">

@@ -13,7 +13,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/codejavadb
     username: root
-    password: Tn30k7311
+    password: admin
   jpa:
     hibernate:
       ddl-auto: none

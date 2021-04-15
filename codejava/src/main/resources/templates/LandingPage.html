@@ -1,0 +1,98 @@
+<!--Landing Page-->
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Landing Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <link href="PHomeStyles.css" rel="stylesheet">
+
+</head>
+
+<body style="background-color:#000000 ">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand float-left" href="#">COVIDULE</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto float-right">
+
+                <li class="nav-item ">
+                    <a class="nav-link text-white" th:href="@{/PHome}">Register</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link text-white" th:href="@{/signout}">Sign In</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</div>
+<div class="container-fluid mt-5">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="Capture.JPG">
+        </div>
+        <div class="col-md-8 mt-5">
+            <h3>Who qualifies for Testing?</h3>
+                <p class="lead"> Testing is available for ages 3 and up. Minors under 16 must be accompanied by an
+                    adult.
+                </p>
+                <h3>How does it work?</h3>
+                    <ol>
+                        <li>
+                            <span class="single">Register as a new patient. Select a test site and available time by logging in.
+                            </span>
+                        </li>
+                        <li>
+                            <span class="single">Insurance card and proof of identity are required
+                                Be sure to have your mobile phone in case we need to reach you.
+                            </span>
+                        </li>
+                        <li>
+                            <span class="single">Upon arrival, follow instructions posted at the site.
+                            <ul>
+                                <li>
+                                    For rapid result tests, our provider will call with next steps,
+                                    and patients may be asked to come into the clinic depending on their results.
+                                </li>
+                                <li>
+                                    For lab tests, your sample is sent to one of our lab partners.
+                                    Average turnaround time for receiving results from lab tests is 1-2 days.
+                                </li>
+                            </ul>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="single">We'll text you a secure link to view and download your results
+                                for 5 days.
+                                <p>
+                                    We'll also send you emails to activate a your account, which will give you permanent
+                                    access to your results.
+                                </p>
+                            </span>
+                        </li>
+                    </ol>
+                    <hr class="my-4">
+        </div>
+    </div>
+</div>
+</body>
+</html>

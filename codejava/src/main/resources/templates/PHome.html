@@ -32,7 +32,7 @@
     <title>PortaL</title>
 </head>
 
-<body class="bg-image">
+<body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand float-left" href="#">COVIDULE</a>
@@ -60,7 +60,7 @@
         </div>
     </div>
 </nav>
-<main class="my-form bg-image">
+<main class="my-form">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -76,7 +76,7 @@
                                 <label for="full_name" class="col-md-4 col-form-label text-md-right">Full
                                     Name</label>
                                 <div class="col-md-6">
-                                    <input type="text" th:name="Name" id="full_name" class="form-control" name="full-name" th:value="${AUser.getName()}" readonly = false>
+                                    <input type="text" th:name="Name" id="full_name" class="form-control" name="full-name" th:value="${AUser.getName()}" readonly = true>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -181,6 +181,7 @@ function myFunction1()
     }
 
 </script>
+
 
 </body>
 

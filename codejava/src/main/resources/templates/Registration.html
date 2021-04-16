@@ -126,7 +126,7 @@
                                 <div class="col-md-6">
                                     <input type="password" id = "pass" th:field="*{password}" class="form-control"
                                            placeholder="Enter your password" required autofocus minlength="6" maxlength="10"
-                                           data-toggle="tooltip" data-placement="auto" title="minimum 6 and maximum 10 characters"/>
+                                           data-toggle="tooltip" data-placement="auto"  title="minimum 6 and maximum 10 characters"/>
                                 </div>
                             </div>
 
@@ -214,6 +214,11 @@
         if(pass != rpass)
         {
             alert("Entered Password doesn't match");
+            return;
+        }
+        if (pass.length < 6)
+        {
+            alert("Password must be minimum 6 characters");
             return;
         }
 

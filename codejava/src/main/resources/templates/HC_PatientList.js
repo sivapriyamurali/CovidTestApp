@@ -1,10 +1,13 @@
 $(() => {
 
     const renderTb = (data) => {
-        const html = data.map(({user ,testCenter, email, id, image}) => (`<tr>
+        const html = data
+            .filter(d => d.type === 'Test')
+            .map(({user, testCenter, date, id, image}) => (`<tr>
                             <td>${user.fullname}</td>
                             <td>${testCenter}</td>
                             <td>${user.email}</td>
+                            <td>${date}</td>
                             <td>${image ? ` <img class="img-report" src="data:image/png;base64, ${image}"  />` : ''}</td>
 
                             <td><input type="radio" data-id="${id}" name="ops"/></td>
@@ -26,8 +29,7 @@ $(() => {
         if ($center.length !== 0) {
             const id = $center.attr('data-id');
             window.location.href = `/hc/patient/update/${id}`
-        }
-        else{
+        } else {
             alert("Please select a Patient")
         }
 

@@ -275,7 +275,12 @@ function new_event(event) {
         if (isNaN(invitedCount) || invitedCount < 1) {
             $("#count").addClass("error-input");
             alert('Number of slots must be positive integer')
-        } else {
+        }
+        if (isNaN(invitedCount) || invitedCount > 20) {
+            $("#count").addClass("error-input");
+            alert('The range of slots must be 0~20')
+        }
+        else {
             $("#dialog").hide(250);
             $("#deldialog").hide(250);
 

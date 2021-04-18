@@ -51,7 +51,7 @@ public class AppController {
 
 
 	@GetMapping("/login")
-	public String login()
+	public String login(Model model, @AuthenticationPrincipal CustomUserDetails userna)
 	{
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication == null || authentication instanceof AnonymousAuthenticationToken)
@@ -61,13 +61,15 @@ public class AppController {
 
 		else
 		{
+			User AUser = userRepo.findByEmail(userna.getUsername());
+			model.addAttribute("AUser", AUser);
 			return "Patient_HomePage";
 		}
 
 	}
 
 	@GetMapping("/")
-	public String landingPage()
+	public String landingPage(Model model, @AuthenticationPrincipal CustomUserDetails userna)
 	{
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication == null || authentication instanceof AnonymousAuthenticationToken)
@@ -77,6 +79,8 @@ public class AppController {
 
 		else
 		{
+			User AUser = userRepo.findByEmail(userna.getUsername());
+			model.addAttribute("AUser", AUser);
 			return "Patient_HomePage";
 		}
 
@@ -106,7 +110,6 @@ public class AppController {
 
 
 	}
-
 
 
 	@GetMapping("/Vaccine")
@@ -323,14 +326,19 @@ public class AppController {
 	}
 
     @GetMapping("login-success")
-    public String loginSuccess(Model model)
+    public String loginSuccess(Model model, @AuthenticationPrincipal CustomUserDetails userna)
 	{
         final CustomUserDetails details =  (com.example.codejava.CustomUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final var user = details.getUser();
         model.addAttribute("AUser", user);
-        if (Objects.equals(user.getType(), "Patient")) {
+        if (Objects.equals(user.getType(), "Patient"))
+        {
+			User AUser = userRepo.findByEmail(userna.getUsername());
+			model.addAttribute("AUser", AUser);
             return "Patient_HomePage";
-        } else {
+        }
+        else
+        {
             return "HC_Home";
         }
     }
@@ -456,7 +464,7 @@ public class AppController {
 	}
 
 	@GetMapping("/Patient_HomePage")
-	public String PatientHomePage()
+	public String PatientHomePage(Model model, @AuthenticationPrincipal CustomUserDetails userna)
 	{
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication == null || authentication instanceof AnonymousAuthenticationToken)
@@ -466,6 +474,9 @@ public class AppController {
 
 		else
 		{
+			User AUser = userRepo.findByEmail(userna.getUsername());
+			model.addAttribute("AUser", AUser);
+
 			return "Patient_HomePage";
 		}
 

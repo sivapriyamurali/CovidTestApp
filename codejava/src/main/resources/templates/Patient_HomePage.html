@@ -42,11 +42,13 @@
 
 <section class="u-align-left u-black u-clearfix u-section-1" id="carousel_b6d5">
     <div class="container-fluid">
+        <form id="myPhomeForm"   method="get" >
         <div class="u-clearfix u-sheet u-sheet-1" data-image-width="1600" data-image-height="970">
             <img src="Capture.jpg" alt="" class="u-image u-image-default u-image-1" data-image-width="700"
                  data-image-height="900">
             <div class="u-black u-container-style u-expanded-width-sm u-expanded-width-xs u-group u-group-1">
-                <h2>Hello <span sec:authentication="principal.fullName">Fullname</span>,</h2>
+<!--                <h2>Hello <span sec:authentication="principal.fullName">Fullname</span>,</h2>-->
+                <h2>Hello <span th:text="${AUser.getName()}"></span>,</h2>
                 <p class="lead">Are you or is someone close to you sick or has symptoms? Do you work outside the home? You
                     should
                     get tested for coronavirus.</p>
@@ -68,6 +70,7 @@
                 </div>
             </div>
         </div>
+        </form>
     </div>
 
 

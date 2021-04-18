@@ -167,7 +167,7 @@
     $('#vaccineOrder').change(
         function()
         {
-            $.getJSON("http://localhost:8080/vaccine/Date", {
+            $.getJSON("/vaccine/Date", {
                 TC : $(this).val(),
                 ajax : 'true'
             }, function(data) {
@@ -197,7 +197,7 @@
         function()
         {
             $.getJSON
-            ("http://localhost:8080/vaccine/Time",
+            ("/vaccine/Time",
                 {
                     TC : $('#vaccineOrder').val(),
                     TD : $(this).val(),

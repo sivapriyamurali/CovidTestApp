@@ -291,11 +291,25 @@ public class AppController {
 
 
 	@GetMapping("/register")
-	public String showRegistrationForm(Model model)
+	public String showRegistrationForm(Model model, @AuthenticationPrincipal CustomUserDetails userna)
 	{
-		model.addAttribute("user", new User());
 
-		return "Registration.html";
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication == null || authentication instanceof AnonymousAuthenticationToken)
+		{
+			model.addAttribute("user", new User());
+
+			return "Registration.html";
+		}
+		else
+		{
+			User AUser = userRepo.findByEmail(userna.getUsername());
+			model.addAttribute("AUser", AUser);
+			return "Patient_HomePage";
+		}
+
+
+
 	}
 
 

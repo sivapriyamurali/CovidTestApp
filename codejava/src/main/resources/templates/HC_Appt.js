@@ -146,20 +146,8 @@ function update_event(event) {
     })
 
 
-    var date = event.data.date
-    const choiceDate = new Date(`${ date.getFullYear()}-${date.getMonth() + 1}-${ parseInt($(".active-date").html())}`)
-    const now = new Date()
-    const dateNow = new Date(`${ now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`)
-
-    console.info('not choice',choiceDate,dateNow)
-    if (choiceDate < dateNow) {
-
-        return;
-    }
-
     const {invited_count, type, time} = appointment
     $('#count').val(invited_count)
-
 
 
     $('#updateDlgHd').text('Update Appointment');
@@ -181,13 +169,17 @@ function update_event(event) {
         //var name = $("#name").val().trim();
         var time = $("#time").val().trim();
         var invitedCount = parseInt($("#count").val().trim());
+
         var day = parseInt($(".active-date").html());
-        // Basic form validation
-        //if(name.length === 0) {
-        //    $("#name").addClass("error-input");
-        //}
-        if (isNaN(invitedCount)) {
+        const choiceDate = `${date.getFullYear()}-${date.getMonth() + 1}-${day}`;
+
+        if (checkDate(choiceDate, time)) {
+            return;
+        }
+
+        if (isNaN(invitedCount) || invitedCount < 1) {
             $("#count").addClass("error-input");
+            alert('Number of slots must be positive integer')
         } else {
             $("#dialog").hide(250);
             $("#deldialog").hide(250);
@@ -213,6 +205,31 @@ function update_event(event) {
     });
 }
 
+const dateSource = {
+    '9:00 AM - 10:00 AM': '10:00',
+    '10:00AM-11:00AM': '11:00',
+    '11:00AM-12:00PM': '12:00',
+    '12:00PM-1:00PM': '13:00',
+    '1:00PM-2:00PM': '14:00',
+    '2:00PM-3:00PM': '15:00',
+    '3:00PM-4:00PM': '16:00',
+}
+const checkDate = (date, time) => {
+
+    const dateNow = new Date()
+
+    const choiceDate = new Date(`${date} ${dateSource[time]}`)
+
+    console.info('choiceDate dateNow', choiceDate, dateNow)
+
+    const disable = choiceDate < dateNow;
+
+    if (disable) {
+        alert('please select a future date')
+    }
+    return disable
+}
+
 // Event handler for clicking the new event button
 function new_event(event) {
     //if delete appointment dialog is open , then close it
@@ -224,16 +241,7 @@ function new_event(event) {
     $("input").click(function () {
         $(this).removeClass("error-input");
     })
-    var date = event.data.date
-    const choiceDate = new Date(`${ date.getFullYear()}-${date.getMonth() + 1}-${ parseInt($(".active-date").html())}`)
-    const now = new Date()
-    const dateNow = new Date(`${ now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`)
 
-    console.info('not choice',choiceDate,dateNow)
-    if (choiceDate < dateNow) {
-
-        return;
-    }
 
     // empty inputs and hide events
     $("#dialog input[type=text]").val('');
@@ -256,13 +264,17 @@ function new_event(event) {
         //var name = $("#name").val().trim();
         var time = $("#time").val().trim();
         var invitedCount = parseInt($("#count").val().trim());
+
         var day = parseInt($(".active-date").html());
-        // Basic form validation
-        //if(name.length === 0) {
-        //    $("#name").addClass("error-input");
-        //}
-        if (isNaN(invitedCount)) {
+        const choiceDate = `${date.getFullYear()}-${date.getMonth() + 1}-${day}`;
+
+        if (checkDate(choiceDate, time)) {
+            return;
+        }
+
+        if (isNaN(invitedCount) || invitedCount < 1) {
             $("#count").addClass("error-input");
+            alert('Number of slots must be positive integer')
         } else {
             $("#dialog").hide(250);
             $("#deldialog").hide(250);
@@ -430,33 +442,13 @@ let event_data = {
         }
     ]
 };
-//
-$("#add-button").click(function () {
-    const today = new Date();
-    const today_date = today.getDate();
-    const x = document.querySelector(".active-date").innerText;
 
-    if (x < today_date){
-        alert("Please select a future date");
-    }
-
-});
-
-$("#update-button").click(function () {
-    const today = new Date();
-    const today_date = today.getDate();
-    const x = document.querySelector(".active-date").innerText;
-
-    if (x <= today_date){
-        alert("Please select a future date");
-    }
-});
 $("#delete-button").click(function () {
     const today = new Date();
     const today_date = today.getDate();
     const x = document.querySelector(".active-date").innerText;
 
-    if (x <= today_date){
+    if (x <= today_date) {
         $("#deldialog").hide(250)
         alert("Please select a future date");
         $("#deldialog").hide(250)
@@ -464,12 +456,9 @@ $("#delete-button").click(function () {
 });
 
 
-
-
 const refreshData = () => {
     const centerId = $('#centerId').val()
     doGet([`appointments/${centerId}`], (rlt) => {
-
         const events = rlt.map(({
                                     invitedCount: invited_count,
                                     ...o

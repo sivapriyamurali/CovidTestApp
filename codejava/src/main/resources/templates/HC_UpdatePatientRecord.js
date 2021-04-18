@@ -1,14 +1,26 @@
-$(function () {
-    let date = new Date($('#dateId').val());
-    let uploaded = $('#uploadId').val();
-    const now = new Date()
-    const dateNow = new Date(`${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`)
+const dateSource = {
+    '9:00 AM - 10:00 AM': '10:00',
+    '10:00AM-11:00AM': '11:00',
+    '11:00AM-12:00PM': '12:00',
+    '12:00PM-1:00PM': '13:00',
+    '1:00PM-2:00PM': '14:00',
+    '2:00PM-3:00PM': '15:00',
+    '3:00PM-4:00PM': '16:00',
+}
+const checkDate = (date, time) => {
+    const dateNow = new Date()
+    const choiceDate = new Date(`${date} ${dateSource[time]}`)
+    console.info('choiceDate dateNow', choiceDate, dateNow)
+    return choiceDate < dateNow
+}
 
-    console.info('date <',date,dateNow)
-    if (uploaded==='true') {
+
+$(function () {
+    let uploaded = $('#uploadId').val();
+    if (uploaded === 'true') {
         console.info('completed')
         $('#completed').attr('checked', true)
-    } else if (date < dateNow) {
+    } else if (checkDate($('#dateId').val(), $('#time').val())) {
         $('#pending').attr('checked', true)
     } else {
         $('#scheduled').attr('checked', true)

@@ -24,9 +24,6 @@ import java.util.stream.Collectors;
 public class PatientApi {
 
     @Autowired
-    private PatientRepository repository;
-
-    @Autowired
     private TransactionRepository transactionRepository;
 
     @GetMapping("patient")
@@ -49,9 +46,9 @@ public class PatientApi {
             required = false) String keyword) {
         if (StringUtils.isBlank(keyword)) {
             return transactionRepository.findAll();
-        }else {
+        } else {
             final var key = "%" + keyword + "%";
-            return transactionRepository.findByPatientIdLikeOrUserFullnameLike(key,key);
+            return transactionRepository.findByPatientIdLikeOrUserFullnameLike(key, key);
         }
     }
 

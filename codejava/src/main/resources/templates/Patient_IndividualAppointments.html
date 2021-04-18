@@ -36,10 +36,7 @@
 
 <body onload="script();">
 
-<!--<body onload="Jscript(' + ${listappdetail.getDate()} + ');">-->
 
-
-<!-- Bootstrap Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">COVIDULE</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -137,7 +134,7 @@
                                     </div>
 
 
-                                    <!--                                <a href="appt1.jpg" download>Report</a>-->
+
                                     <td>
                                         <input type="radio" th:field="*{id}"
                                                class="form-check form-check-inline"
@@ -151,7 +148,7 @@
                                 </tbody>
                             </table>
                             <div class="text-center">
-                                <!--                            <button type="button" class="btn btn-primary btn-login" id="reschedule" > Reschedule </button>-->
+
                                 <button type="Submit"
                                         class="btn btn-primary btn-login"
                                         id="cancel"> Cancel
@@ -171,18 +168,15 @@
     function script()
     {
         var date = [[${listappdetail.Date}]];
-      //  alert("Date" + date)
+
         var day = new Date().getDate();
         var month = new Date().getMonth();
         var year = new Date().getFullYear();
-        // var datestring = year + "-" + ("0"+(month+1)).slice(-2) + "-" + ("0" + day).slice(-2);
-        var datestring = year + "-" + (month+1) + "-" + day;
 
+        var datestring = year + "-" + (month+1) + "-" + day;
         var d1 = Date.parse(date);
         var d2 = Date.parse(datestring);
-
         var cn = document.getElementById("cancel");
-
 
         if (d1 <= d2)
         {
@@ -209,11 +203,11 @@
             var reader = new FileReader();
             reader.readAsDataURL(blob);
             reader.onload = function (e) {
-                // 转换完成，创建一个a标签用于下载
+
                 var a = document.createElement('a');
                 a.download = fileName;
                 a.href = e.target.result;
-                $("body").append(a);    // 修复firefox中无法触发click
+                $("body").append(a);
                 a.click();
                 $(a).remove();
             }

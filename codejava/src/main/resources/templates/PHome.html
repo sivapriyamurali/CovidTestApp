@@ -68,10 +68,6 @@
                     <div class="card-header"><B>Patient Profile</B></div>
                     <div class="card-body">
                         <form id="myPhomeForm" th:action="@{/update_register}" th:object="${user}" method="post" >
-
-
-<!--                            onsubmit="return validform()" action="success.php" method=""-->
-<!--                            th:field="*{Name}"-->
                             <div class="form-group row">
                                 <label for="full_name" class="col-md-4 col-form-label text-md-right">Full
                                     Name</label>
@@ -110,9 +106,7 @@
 
                                 <div class="col-2 ">
                                     <button type="button" id="save" value="save" onclick="myValidationFunction1()" class="btn btn-primary btn-login"  > Save </button>
-<!--                                    <button type="button" id="register" value="Register" onclick="myValidationFunction()" class="btn btn-primary btn-login" >-->
-<!--                                        Save-->
-<!--                                    </button>-->
+
                                 </div>
                             </div>
                         </form>
@@ -122,9 +116,7 @@
         </div>
     </div>
 </main>
-<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>-->
+
 <script>
 function myFunction1()
 {

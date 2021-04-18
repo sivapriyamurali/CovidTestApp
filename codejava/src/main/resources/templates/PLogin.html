@@ -36,8 +36,7 @@
                         <div class="row">
                             <div class="col-md-9 col-lg-8 mx-auto">
                                 <h3 class="login-heading mb-4 text-center">Welcome to COVIDULE!</h3>
-                                <!--                            <form th:action="@{/login}" method="post" class="needs-validation">-->
-                                <!--                                <form  method="post" >-->
+
                                 <form name="f" th:action="@{/login}" method="post">
                                     <div class="form-label-group">
 
@@ -45,15 +44,13 @@
                                                name="email" class="form-control"
                                                placeholder="Username" required
                                                autofocus>
-                                        <!--                                    <input type="email" id="username" class="form-control"-->
-                                        <!--                                           placeholder="Email address" aria-describedby="emailHelp" required autofocus>-->
+
                                         <label for="username">Email address</label>
                                     </div>
 
                                     <div class="form-label-group ">
 
-                                        <!--                                    <input type="password" id="password" class="form-control"-->
-                                        <!--                                           placeholder="Password" required>-->
+
                                         <input type="password" id="password"
                                                name="password" class="form-control"
                                                placeholder="Password" required>
@@ -92,15 +89,7 @@
                                         </div>
                                     </div>
                                 </form>
-                                <!--<form th:action="@{/register}"
-                                      method="get">
-                                    <div class="col-md-6">
-                                        <button type="submit"
-                                                class="btn btn-primary  btn-block btn-login text-uppercase font-weight-bold mb-2">
-                                            Register
-                                        </button>
-                                    </div>
-                                </form>-->
+
 
                             </div>
                             <div class="text-center">
@@ -117,7 +106,7 @@
     </div>
 </div>
 </div>
-<!-- Reshma time 2:00pm -->
+
 </body>
 <script>
 

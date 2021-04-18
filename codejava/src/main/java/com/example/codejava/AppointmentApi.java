@@ -106,10 +106,13 @@ public class AppointmentApi {
                           String time) throws UnsupportedEncodingException,
             MessagingException {
         String fromAddress = "covidule@gmail.com";
-        String subject = "You Appointment Has Canceled";
+        String subject = "Appointment Cancellation";
         String senderName = "Covidule Team";
         String mailContent = "<p>Dear " + name + ",</p>";
-        mailContent += "<p>You Appointment at " + date + "-" + time + " Has Canceled:</p>";
+
+        mailContent += "<p>We regret to inform that your appointment at " + date + "-" + time + " has been Canceled.</p>";
+        mailContent += "<p>Please reschedule your appointment.</p>";
+        mailContent += "<p>Thank you<br>The Covidule Team. </p>";
 
 
         MimeMessage message = mailSender.createMimeMessage();

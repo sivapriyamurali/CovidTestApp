@@ -52,11 +52,7 @@ body {
     width: 100%;
     margin: 0;
     background:black;
-/*
-    background: -webkit-linear-gradient(left, #363795, #005C97);
-    background: -moz-linear-gradient(left, #363795, #005C97);
-    background: -o-linear-gradient(left, #363795, #005C97);
-    background: linear-gradient(to right, #363795, #005C97); */
+
     font-family: Helvetica;
 } 
 :root {

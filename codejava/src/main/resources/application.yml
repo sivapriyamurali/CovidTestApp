@@ -1,3 +1,4 @@
+
 spring:
   thymeleaf:
     cache: false
@@ -11,9 +12,10 @@ spring:
   resources:
     static-locations: classpath:/templates/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
   datasource:
-    url: jdbc:mysql://localhost:3306/codejavadb
+    url: jdbc:mysql://covidule.cdkqfectjjhz.us-east-2.rds.amazonaws.com:3306/codejavadb
+
     username: root
-    password: Tn30k7311
+    password: 12345678
   jpa:
     hibernate:
       ddl-auto: none
@@ -37,3 +39,5 @@ spring:
           starttls:
             enable: true
             required: true
+server:
+  port: 5000
